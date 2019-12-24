@@ -1,7 +1,8 @@
 body {
-    background-color: #011344;
+    background-color: black;
     font-family:sans-serif;
     text-emphasis-color: white;
+    color:white;
     margin:0px;
     padding:0px;
 }
@@ -9,20 +10,24 @@ body {
 .header{
     padding:0px;
     margin:0px;
-    background-color:dodgerblue;
+    background-color:#303030;
     width:100%;
 
 }
 
-h1{
+h1,h2,h3,h4,h5,p{
+    margin:0px;
 }
 
+
 .station-container{
-    padding:20px;
+    padding:10px;
     margin:auto;
-    background-color:white;
-    width:max(400px,50vw);
+    width:min(max(400px,50vw),800px);
     align-self:center;
+
+    border: .5px solid #555555;
+    border-radius: 4px;
     
 
 }
