@@ -1,0 +1,28 @@
+body {
+    background-color: #011344;
+    font-family:sans-serif;
+    text-emphasis-color: white;
+    margin:0px;
+    padding:0px;
+}
+
+.header{
+    padding:0px;
+    margin:0px;
+    background-color:dodgerblue;
+    width:100%;
+
+}
+
+h1{
+}
+
+.station-container{
+    padding:20px;
+    margin:auto;
+    background-color:white;
+    width:max(400px,50vw);
+    align-self:center;
+    
+
+}
