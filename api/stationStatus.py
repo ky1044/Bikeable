@@ -28,7 +28,8 @@ def get_nearby_stations(lat,lon,radius,max_length):
 				if station_list[s]["distance"]>station_distance:
 					place=s
 					break
-			station_list.insert(place,{"id": station['station_id'],"name":station['name'],"distance":station_distance})
+			MapsURL = "https://www.google.com/maps/search/?api=1&query=Citi+Bike+"+station['name'].replace(" ","+").replace("&","%26")
+			station_list.insert(place,{"id": station['station_id'],"name":station['name'],"distance":station_distance,"mapsURL":MapsURL})
 		# print(station_list)
 	return station_list[:max_length]
 
