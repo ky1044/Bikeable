@@ -14,7 +14,6 @@ function Header(){
         </div>
       </div>
       <br/>
-      <br/>
     </div>
     )
 }
