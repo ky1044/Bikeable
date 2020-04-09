@@ -4,7 +4,7 @@ function Header(){
 	return(
     <div>
   
-		  <div class = "header">
+		  <div className = "header">
         <div style={{margin:"auto",width:320,alignContent:"center"}}>
 
           <p style={{textAlign: "center"}}>
