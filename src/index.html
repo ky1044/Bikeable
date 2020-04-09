@@ -33,5 +33,30 @@
       <h2>Mercer St & Bleecker St: 32/43 Bikes</h2>
       <p style = "font-size:12px;">236 meters away. Updated just now.</p>
     </div>
+    <div>
+      <p id = "info"></p>
+    </div>
   </body>
 </html>
+<script>
+  
+
+  
+  async function requestBikes(){
+    const bike_url = "https://gbfs.citibikenyc.com/gbfs/es/station_status.json";
+    const bike_response = await fetch(bike_url, {mode: 'no-cors'});
+    const bike_data = await bike_response.json();
+    console.log(bike_response);
+    console.log(bike_data);
+    
+  }
+
+  requestBikes();
+  
+
+
+
+
+  // document.getElementById('info').textContent = "hello";
+
+</script>
