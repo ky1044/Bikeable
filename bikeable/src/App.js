@@ -12,18 +12,64 @@ class App extends React.Component{
     stations :  [],
     latitude :40.7308,
     longitude:73.9973
-
     
     }
-
+    this.Initialize = this.Initialize.bind(this);
+    this.getLocation = this.getLocation.bind(this);
+    this.handleLocationError = this.handleLocationError.bind(this);
+    this.setLocation = this.setLocation.bind(this);
     this.getStationStatus = this.getStationStatus.bind(this);
-    this.setStationStatus = this.setStationStatus.bind(this);
 
   }
-
+  async Initialize(){
+    let x = await this.getStationStatus()
+    console.log(this.latitude)
+    this.getStationStatus()
+    
+  }
   
+  getLocation(){
+    
+    if (navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(this.setLocation,this.handleLocationError,{timeout:10000})
+    }else{
+      console.log("error")
+      alert("User location could not be retrieved.")
+    }
+    return null
+  }
+
+  handleLocationError(error) {
+    switch(error.code) {
+      case error.PERMISSION_DENIED:
+        alert( "User denied the request for Geolocation.")
+        break;
+      case error.POSITION_UNAVAILABLE:
+        alert("Location information is unavailable.")
+        break;
+      case error.TIMEOUT:
+        alert("The request to get user location timed out.")
+        break;
+      case error.UNKNOWN_ERROR:
+        alert("An unknown error occurred.")
+        break;
+    }
+    this.setState({ 
+      warnings: "location could not be retried, so example location of Washington Square Park was used",
+      latitude: 40.7308,
+      longitude:73.9973
+     });
+  }
+
+  setLocation(position){
+    console.log("HELLO")
+    console.log(position)
+    this.setState({ 
+      latitude: position.coords.latitude,
+      longitude:position.coords.longitude
+     });
+  }
   getStationStatus(){
-    console.log(this.state.latitude)
     fetch(`stationstatus/${this.state.latitude},${this.state.longitude}`).then(res=>res.json()).then(data=>(
       this.setStationStatus(data)
     ))
@@ -37,7 +83,7 @@ class App extends React.Component{
   }
 
   componentDidMount() {
-    this.getStationStatus()
+    this.Initialize()
       
   
     
