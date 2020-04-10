@@ -97,7 +97,7 @@ class App extends React.Component{
   componentDidMount() {
     this.getStationStatus()
     setInterval(() => this.setState(prevState=>({ timeSinceUpdate: Date.now()-prevState.updateTime,timeSinceLoad:Date.now()-prevState.loadTime})), 100)
-    setInterval(() => this.getStationStatus(), 30000)
+    setInterval(() => this.getStationStatus(), 5000)
       
   }
 

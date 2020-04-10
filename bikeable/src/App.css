@@ -45,6 +45,7 @@ h1,h2,h3,h4,h5,p{
   width:min(max(300px,80vw),800px);
   align-self:center;
   overflow: hidden;
+  background-color:#1a1a1a;
 
   border: .5px solid #555555;
   border-radius: 4px;

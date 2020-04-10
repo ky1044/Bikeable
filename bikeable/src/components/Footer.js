@@ -17,7 +17,7 @@ function Footer(props){
     }
     else{
         return(
-            <h2 style={{textAlign: "center"}}><br/>Loading...</h2>
+            <h2 style={{textAlign: "center"}}>Loading...</h2>
         )
     }
 	
