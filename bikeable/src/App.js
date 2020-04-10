@@ -3,6 +3,7 @@ import './App.css';
 
 import Header from "./components/Header"
 import StationCard from "./components/StationCard"
+import Footer from "./components/Footer"
 
 class App extends React.Component{
   constructor(){
@@ -13,7 +14,8 @@ class App extends React.Component{
     latitude :40.7308,
     longitude:73.9973,
     lastUpdate :null,
-    timeSinceUpdate:null
+    timeSinceUpdate:null,
+    hasloaded:false
     }
     this.getStationStatus = this.getStationStatus.bind(this);
     this.setStationStatus = this.setStationStatus.bind(this);
@@ -30,14 +32,15 @@ class App extends React.Component{
     console.log("updated status")
     this.setState({ 
       stations:data.stationStatus,
-      lastUpdate: Date.now()
+      lastUpdate: Date.now(),
+      hasloaded:true
      });
   }
 
   componentDidMount() {
     this.getStationStatus()
     setInterval(() => this.setState({ timeSinceUpdate: Date.now()-this.state.lastUpdate}), 100)
-    setInterval(() => this.getStationStatus(), 40000)
+    setInterval(() => this.getStationStatus(), 30000)
       
   }
 
@@ -54,7 +57,7 @@ class App extends React.Component{
           lastUpdate = {this.state.timeSinceUpdate}
         />
         ) )}
-        {/* <p>{this.state.location}</p> */}
+        <Footer loaded = {this.state.hasloaded}/>
       </div>
     );
   }
