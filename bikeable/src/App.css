@@ -44,8 +44,33 @@ h1,h2,h3,h4,h5,p{
   margin:auto;
   width:min(max(300px,80vw),800px);
   align-self:center;
+  overflow: hidden;
 
   border: .5px solid #555555;
   border-radius: 4px;
+
+}
+
+.additional-info-toggle{
+  /* background-color: #222222;  */
+  border: none;
+  
+  padding: 0px 6px;
+  
+  color: #aaaaaa;
+  /* text-decoration: underline; */
+  font-weight: bold;
+  
+  cursor:pointer;
+  text-align: center;
+  display: inline-block;
+  float: right;
+
+}
+
+.additional-station-info{
+  float: left;
+  clear:both;
+  width:100%;
 
 }
