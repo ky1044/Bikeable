@@ -109,6 +109,8 @@ class App extends React.Component{
     
       <div>
         <Header/>
+        {!this.state.hasloaded&&<h2 style={{textAlign: "center"}}>Loading...</h2>}
+
         {this.state.stations.map( station=>(
           <StationCard
           key={station.id}
@@ -123,7 +125,9 @@ class App extends React.Component{
 
         />
         ) )}
-        <Footer loaded = {this.state.hasloaded}/>
+
+        {this.state.hasloaded&&<Footer/>}
+        
       </div>
     );
   }

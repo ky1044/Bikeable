@@ -28,8 +28,8 @@ body {
   width:100%;
 }
 .footer{
-  width:min(max(300px,80vw),800px);
-  align-self:center;
+  /* width:min(max(300px,80vw),800px); */
+  /* align-self:center; */
   align-content:center;
 
 }
