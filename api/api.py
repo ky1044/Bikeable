@@ -8,6 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 from apscheduler.schedulers.background import BackgroundScheduler
 from updateInfo import updateInfo, Info
+from updateCurrentStatus import updateCurrentStatus,CurrentStatus
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -22,6 +23,7 @@ app.config["DEBUG"] = True
 
 scheduler = BackgroundScheduler(daemon=True)
 scheduler.add_job(func=updateInfo, trigger="interval", minutes=60)
+scheduler.add_job(func=updateCurrentStatus, trigger="interval", seconds=10)
 scheduler.start()
 
 
