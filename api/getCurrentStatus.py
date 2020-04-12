@@ -25,7 +25,7 @@ def get_nearby_stations(lat,lon,radius,max_length):
 					break
 			MapsURL = "https://www.google.com/maps/search/?api=1&query=Citi+Bike+"+station.name.replace(" ","+").replace("&","%26")
 			AppURL = "http://app.citibikenyc.com/S6Lr/IBV092JufD?station_id="+str(station.id)
-			nearby_stations.insert(place,{"id": station.id,"name":station.name,"distance":station_distance,"mapsURL":MapsURL})
+			nearby_stations.insert(place,{"id": station.id,"name":station.name,"distance":station_distance,"mapsURL":MapsURL,"appURL":AppURL})
 	return nearby_stations[:max_length]
 
 

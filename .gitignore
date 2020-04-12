@@ -1,3 +1,6 @@
 bikeable/node_modules
 api/__pycache__
 Api/station.db-journal
+api/venv/lib/python3.7/site-packages/flask_sqlalchemy/__pycache__/
+api/venv/lib/python3.7/site-packages/sqlalchemy/util/__pycache__/
+api/venv/lib/python3.7/site-packages/tzlocal/__pycache__/
