@@ -1,32 +1,12 @@
-import flask
-import sys
-
-import time
-import requests
-
-from flask_sqlalchemy import SQLAlchemy
-
-from apscheduler.schedulers.background import BackgroundScheduler
-from updateInfo import updateInfo, Info
-from updateCurrentStatus import updateCurrentStatus,CurrentStatus
-
-from getCurrentStatus import get_station_status
-
-
-app = flask.Flask(__name__)
-app.config["DEBUG"] = True
-
-
-
-
-#the below code should be ideally imported from "getCurrentStatus.py", but calling that does not work inside app.run 
-#Issue can be found here:https://github.com/geopython/GeoHealthCheck/issues/89
-##------------------------------------------------------------------------------------------------------------##
 from geopy import distance
 import geocoder
+
+import flask 
+from flask_sqlalchemy import SQLAlchemy
+
+app = flask.Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///station.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
-
 db = SQLAlchemy(app)
 
 class Info(db.Model):
@@ -92,33 +72,6 @@ def get_station_status(user_latitude, user_longitude):
 	nearby_station_status = get_station_availability(nearby_station_list)
 	return nearby_station_status
 
-##------------------------------------------------------------------------------------------------------------##
-
-
-
-
-
-@app.route('/stationstatus/<coords>',methods=['GET'])
-def getStationInfo(coords):
-	lat,lon=coords.split(",")
-	lat = float(lat)
-	lon = float(lon)
-	status = get_station_status(lat, -lon )
-	# status = []
-	# print(status)
-	for i in status:
-		i["distance"]=int(i["distance"])
-	return {"stationStatus":status }
-
-
-
 
 if __name__ == "__main__":
-	scheduler = BackgroundScheduler(daemon=True)
-	scheduler.add_job(func=updateInfo, trigger="interval", minutes=60)
-	scheduler.add_job(func=updateCurrentStatus, trigger="interval", seconds=10)
-	scheduler.start()
-	
-	app.run(use_reloader=False)
-
-	
+	print(get_station_status(40.7308,-73.9973))
