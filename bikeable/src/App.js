@@ -16,6 +16,7 @@ class App extends React.Component{
       stations :  [],
       initialBikeCount:{},
       logBikeCount:{},
+      stationLogs :[],
       
       hasloaded:false,
 
@@ -29,7 +30,10 @@ class App extends React.Component{
     this.getStationStatus = this.getStationStatus.bind(this);
     this.setStationStatus = this.setStationStatus.bind(this);
     this.handleShowChange = this.handleShowChange.bind(this);
+    this.getStationLog = this.getStationLog.bind(this);
+    this.setStationLog = this.setStationLog.bind(this);
 
+    
   }
 
   getStationStatus(){
@@ -74,13 +78,35 @@ class App extends React.Component{
             [this.state.stations[stationI].id]:[this.state.stations[stationI].bikes]
           }
          }));
+         this.getStationLog(this.state.stations[stationI].id)
        }
+       
      }
      
      this.setState({ 
       hasloaded:true
      });
      console.log("updated station status")
+  }
+
+  getStationLog(stationID){
+    fetch(`stationlog/${stationID}`).then(res=>res.json()).then(data=>(
+      this.setStationLog(data,stationID)
+    ))
+    console.log("updated station "+stationID+" logs")
+  }
+
+  setStationLog(data,stationID){
+    console.log(data)
+    console.log(data.stationLog)
+
+      this.setState(prevState=>({
+        stationLogs:{
+          ...prevState.stationLogs,
+          [stationID]:data.stationLog
+        }
+      }))
+    
   }
 
   handleShowChange(id){
@@ -127,7 +153,7 @@ class App extends React.Component{
         ) )}
 
         {this.state.hasloaded&&<Footer/>}
-        
+
       </div>
     );
   }

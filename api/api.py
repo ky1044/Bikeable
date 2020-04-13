@@ -36,7 +36,7 @@ def getStationInfo(coords):
 	return {"stationStatus":status }
 
 @app.route('/stationlog/<stationId>',methods=['GET'])
-def getStationLog(coords):
+def getStationLog(stationId):
 	return {"stationLog":queryPastWeek(stationId)}
 
 
