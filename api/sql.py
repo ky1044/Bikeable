@@ -27,3 +27,15 @@ class CurrentStatus(db.Model):
 
 		def __repr__(self):
 			return f"Station('ID: {self.id}','Bikes: {self.bikes}',Docks: '{self.docks}','Updated:{self.updateTime}')"
+
+class StatusLog(db.Model):
+		logId = db.Column(db.Integer,primary_key = True)
+		id = db.Column(db.Integer)
+		bikes = db.Column(db.Integer)
+		docks = db.Column(db.Integer)
+		dateTime = db.Column(db.String)
+		dateI=db.Column(db.Integer)
+		timeI=db.Column(db.Integer)
+
+		def __repr__(self):
+			return f"Log('ID: {self.id}','Bikes: {self.bikes}',Docks: '{self.docks}','Logged:{self.dateTime}','dateI:{self.dateI}','timeI:{self.timeI}','logID:{self.logId}')\n"

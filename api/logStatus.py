@@ -20,10 +20,10 @@ def logStatus():
 	eastern = timezone('US/Eastern')
 	originTime = eastern.localize(datetime.strptime("2020-01-01 00:0", "%Y-%m-%d %H:%M"))
 
-	LogDeltaI=logTimeRounded-originTime
-	logDateI=LogDeltaI.days
+	LogDelta=logTimeRounded-originTime
+	logDateI=LogDelta.days
 	logTimeI = logTimeRounded.hour*60+logTimeRounded.minute
-	
+
 
 	# print(lastLogTime[-5:])
 	# print(logTimeRounded.strftime("%H:%M"))
