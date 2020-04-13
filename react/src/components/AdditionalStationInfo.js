@@ -10,6 +10,7 @@ function AdditionalStationInfo(props){
                     <hr style ={{borderColor:"#555555"}}/>
                     <h4>Additional Info:</h4>
                     <p style = {{color:"#aaaaaa"}}>Updated {parseInt(props.timeSinceUpdate/1000)} seconds ago. {ChangeSinceLoad(props.logBikeCount[props.id],props.timeSinceLoad)}</p>
+                    
                 </div>
             }</div>
         )

@@ -67,7 +67,7 @@ class App extends React.Component{
        }));
       
        if (stationList[stationI] in this.state.initialBikeCount){
-         const prevStationState = this.state.logBikeCount[stationList[stationI]].concat([this.state.stations[stationI].bikes])
+         const prevStationState = this.state.logBikeCount[stationList[stationI]].concat([this.state.status[stationList[stationI]].bikes])
         this.setState(prevState=>({ 
           logBikeCount:{
             ...prevState.logBikeCount,
