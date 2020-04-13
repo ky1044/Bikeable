@@ -11,8 +11,9 @@ function AdditionalStationInfo(props){
             "time":log.datetime.substring(log.datetime.length-5),"bikes":log.bikes
         })).slice(Math.max(props.log[props.id].length - 288, 0))
 
-        // const chartTime = chartData && chartData.map(log=>log.time).filter(time => time.substring(time.length-2) ==="00")
-        
+        const xTicks = chartData && chartData.map(log=>log.time).filter(time => time.substring(time.length-2) ==="00").concat(chartData.map(log=>log.time)[chartData.length-1])
+        const yTicks =props.status && [0,10,20,30,40,50,60,70,80,90,100].filter(x=>x<props.status[props.id].docks).concat([props.status[props.id].docks])
+        // [0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100]
 
         return(
             <div>
@@ -25,10 +26,11 @@ function AdditionalStationInfo(props){
                     <h4 align ="center">bike count over last day</h4>
                     <ResponsiveContainer width="100%" height={300}>
                         <LineChart  data={chartData} margin={{ top: 5, right: 30, bottom: 5, left: 0 }}>
+                        
+                        <CartesianGrid  stroke="#222222" />
                         <Line type="monotone" dataKey="bikes" stroke="#00deff" strokeWidth={5} />
-                        <CartesianGrid  stroke="#555555" strokeDasharray="3 15" />
-                        <XAxis dataKey="time" />
-                        <YAxis  dataKey="bikes" domain={[0, props.status[props.id].docks]}/>
+                        <XAxis dataKey="time" ticks = {xTicks}/>
+                        <YAxis  dataKey="bikes" domain={[0, props.status[props.id].docks]} ticks = {yTicks}/>
                         <Tooltip animationEasing = "linear"/>
                         </LineChart>
                     </ResponsiveContainer>
