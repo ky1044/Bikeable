@@ -44,7 +44,7 @@ if __name__ == "__main__":
 	scheduler = BackgroundScheduler(daemon=True)
 	scheduler.add_job(func=updateInfo, trigger="interval", minutes=60)
 	scheduler.add_job(func=updateCurrentStatus, trigger="interval", seconds=10)
-	scheduler.add_job(func=logStatus, trigger="interval", minutes=1)
+	scheduler.add_job(func=logStatus, trigger="interval", seconds=10)
 	scheduler.start()
 	
 	app.run(use_reloader=False)

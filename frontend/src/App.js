@@ -89,8 +89,9 @@ class App extends React.Component{
             [stationList[stationI]]:[this.state.status[stationList[stationI]].bikes]
           }
          }));
-         this.getStationLog(stationList[stationI])
+         
        }
+       this.getStationLog(stationList[stationI])
        
      }
      this.setState({

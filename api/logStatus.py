@@ -27,22 +27,26 @@ def logStatus():
 
 	# print(lastLogTime[-5:])
 	# print(logTimeRounded.strftime("%H:%M"))
+	
+	with open("lastLog", 'w') as newlastLog:
+		    newlastLog.write(logTimeRounded.strftime("%Y-%m-%d %H:%M"))
 
 
 	if lastLogTime[-5:]!=logTimeRounded.strftime("%H:%M"):
-		print("logging station status")
+		try:
+			print("logging station status")
 
-		url = 'https://gbfs.citibikenyc.com/gbfs/es/station_status.json'
-		resp = requests.get(url=url)
-		feed = resp.json()
+			url = 'https://gbfs.citibikenyc.com/gbfs/es/station_status.json'
+			resp = requests.get(url=url)
+			feed = resp.json()
 
-		for station in feed['data']['stations']:
-			log = StatusLog(id = station['station_id'],bikes =station['num_bikes_available'],docks = station['num_docks_available'],dateTime = logTimeRounded.strftime("%Y-%m-%d %H:%M"),dateI =logDateI,timeI=logTimeI)
-			db.session.add(log)
-		db.session.commit()
-
-		with open("lastLog", 'w') as newlastLog:
-		    newlastLog.write(logTimeRounded.strftime("%Y-%m-%d %H:%M"))
+			for station in feed['data']['stations']:
+				log = StatusLog(id = station['station_id'],bikes =station['num_bikes_available'],docks = station['num_docks_available'],dateTime = logTimeRounded.strftime("%Y-%m-%d %H:%M"),dateI =logDateI,timeI=logTimeI)
+				db.session.add(log)
+			db.session.commit()
+		except:
+			with open("lastLog", 'w') as newlastLog:
+			    newlastLog.write(lastLogTime)
 
 
 

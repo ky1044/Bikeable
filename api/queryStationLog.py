@@ -24,7 +24,7 @@ def queryPastWeek(stationID):
 	weekLog = []
 
 	for log in stationLog:
-		print({"datetime": log.dateTime,"bikes":log.bikes,"docks":log.bikes+log.docks})
+		# print({"datetime": log.dateTime,"bikes":log.bikes,"docks":log.bikes+log.docks})
 		weekLog.append({"datetime": log.dateTime,"bikes":log.bikes,"docks":log.bikes+log.docks})
 	return weekLog
 
