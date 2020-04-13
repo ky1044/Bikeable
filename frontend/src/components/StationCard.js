@@ -8,7 +8,7 @@ function StationCard(props){
             <div className = "station-container">
                 <h2>{props.status[props.id].name}: {props.status[props.id].bikes}/{props.status[props.id].docks} Bikes</h2>
                     <div style = {{float:"left"}}>
-                    <p style = {{color:"#aaaaaa"}}>{props.status[props.id].distance} meters away, <a style = {{color:"#00deff"}}href={props.status[props.id].mapsURL}>open on Maps</a>, <a style = {{color:"#00deff"}}href={props.status[props.id].appURL}>open on App</a>.</p>
+                    <p style = {{color:"#aaaaaa"}}>{props.status[props.id].distance} meters away, <a style = {{color:"#00deff"}}href={props.status[props.id].mapsURL}>Map</a>, <a style = {{color:"#00deff"}}href={props.status[props.id].appURL}>Rent</a>.</p>
                     </div>
                     <AdditionalStationInfoToggle  {...props}/>
                     <AdditionalStationInfo {...props}/>

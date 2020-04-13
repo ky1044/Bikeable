@@ -42,7 +42,7 @@ h1,h2,h3,h4,h5,p{
 .station-container{
   padding:10px;
   margin:auto;
-  width:min(max(300px,80vw),800px);
+  width:min(max(300px,90vw),800px);
   align-self:center;
   overflow: hidden;
 
