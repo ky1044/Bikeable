@@ -13,13 +13,11 @@ class App extends React.Component{
       latitude :40.7308,
       longitude:73.9973,
 
-      preStationList :  [],
-      stationList :  [],
       stations:[],
       initialBikeCount:{},
       logBikeCount:{},
       status:{},
-      Logs :{},
+      log :{},
       
       hasloaded:false,
 
@@ -47,39 +45,27 @@ class App extends React.Component{
   setStationStatus(data){
 
     let stationList = data.stationStatus.map(station=>{return station.id})
-
-    this.setState({
-      updateTime: Date.now()
-    })
-
-    for (let stationI = 0; stationI < stationList.length; stationI++){
-      // update status
-      this.setState(prevState=>({ 
-        status:{
-          ...prevState.status,
-          [stationList[stationI]]:data.stationStatus[stationI]
-        }
-       }));
-      //update initial bike count
-
-    }
+    
     if (!this.state.loadTime){
       this.setState({ 
         loadTime:Date.now()
        });
 
      }
-    
 
-    // TODO: delete stations
-    this.setState({ 
-      stations:data.stationStatus,
-     });
-
-     
+     this.setState({
+      updateTime: Date.now()
+    })
+         
 
      for (let stationI = 0; stationI < stationList.length; stationI++){
-    
+      this.setState(prevState=>({ 
+        status:{
+          ...prevState.status,
+          [stationList[stationI]]:data.stationStatus[stationI]
+        }
+       }));
+      
        if (stationList[stationI] in this.state.initialBikeCount){
          const prevStationState = this.state.logBikeCount[stationList[stationI]].concat([this.state.stations[stationI].bikes])
         this.setState(prevState=>({ 
@@ -96,20 +82,19 @@ class App extends React.Component{
           },
           initialBikeCount:{
             ...prevState.initialBikeCount,
-            [stationList[stationI]]:this.state.stations[stationI].bikes
+            [stationList[stationI]]:this.state.status[stationList[stationI]].bikes
           },
           logBikeCount:{
             ...prevState.logBikeCount,
-            [stationList[stationI]]:[this.state.stations[stationI].bikes]
+            [stationList[stationI]]:[this.state.status[stationList[stationI]].bikes]
           }
          }));
-         
+         this.getStationLog(stationList[stationI])
        }
-       this.getStationLog(stationList[stationI])
        
      }
      this.setState({
-      stationList:stationList
+      stations:stationList
 
     })
      
@@ -130,13 +115,11 @@ class App extends React.Component{
 
 
       this.setState(prevState=>({
-        stationLogs:{
-          ...prevState.stationLogs,
+        log:{
+          ...prevState.log,
           [stationID]:data.stationLog
         }
       }))
-      console.log("set station logs")
-      console.log(this.state.stationLogs[336])
     
   }
 
@@ -168,7 +151,7 @@ class App extends React.Component{
         <Header/>
         {!this.state.hasloaded&&<h2 style={{textAlign: "center"}}>Loading...</h2>}
 
-        {this.state.stationList.map( id =>(
+        {this.state.stations.map( id =>(
           <StationCard
           key={id}
           id = {id}
