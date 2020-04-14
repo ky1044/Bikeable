@@ -14,7 +14,7 @@ def logStatus():
 	lastLogFile.close()
 
 	logTime = datetime.now(timezone('US/Eastern'))
-	logTimeRounded = logTime - timedelta(minutes=logTime.minute % 5, seconds=logTime.second, microseconds=logTime.microsecond)
+	logTimeRounded = logTime - timedelta(minutes=(logTime.minute % 5), seconds=logTime.second, microseconds=logTime.microsecond)
 
 
 	eastern = timezone('US/Eastern')
@@ -39,12 +39,14 @@ def logStatus():
 			url = 'https://gbfs.citibikenyc.com/gbfs/es/station_status.json'
 			resp = requests.get(url=url)
 			feed = resp.json()
+			print("got station status")
 
 			for station in feed['data']['stations']:
 				log = StatusLog(id = station['station_id'],bikes =station['num_bikes_available'],docks = station['num_docks_available'],dateTime = logTimeRounded.strftime("%Y-%m-%d %H:%M"),dateI =logDateI,timeI=logTimeI)
 				db.session.add(log)
 			db.session.commit()
 		except:
+			print("couldn't log status")
 			with open("lastLog", 'w') as newlastLog:
 			    newlastLog.write(lastLogTime)
 

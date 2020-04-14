@@ -8,13 +8,13 @@ class  DayChart extends React.Component{
         super(props);
     }
     shouldComponentUpdate(nextProps, nextState) {
-        return   nextProps.showInfo!==this.props.showInfo||nextProps.log!==this.props.log ;    
+        return  nextProps.showInfo!==this.props.showInfo||nextProps.log!==this.props.log ;    
       }
 
     
     render(){
         
-        let chartData = this.props.showInfo[this.props.id] && this.props.log[this.props.id].map(log=>({
+        let chartData = this.props.showInfo[this.props.id] && this.props.log[this.props.id] && this.props.log[this.props.id].map(log=>({
             "time":log.datetime.substring(log.datetime.length-5),
             "bikes":log.bikes
         })).slice(Math.max(this.props.log[this.props.id].length - 288, 0))

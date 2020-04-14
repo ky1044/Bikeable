@@ -29,4 +29,4 @@ def queryPastWeek(stationID):
 	return weekLog
 
 if __name__ == "__main__":
-	queryPastWeek(336)
+	print(queryPastWeek(336))
