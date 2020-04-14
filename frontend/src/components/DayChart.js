@@ -21,6 +21,7 @@ class  DayChart extends React.Component{
 
         let xTicks = chartData && chartData.map(log=>log.time).filter(time => time.substring(time.length-2) ==="00").concat(chartData.map(log=>log.time)[chartData.length-1])
         let yTicks =this.props.status && [0,10,20,30,40,50,60,70,80,90,100].filter(x=>x<this.props.status[this.props.id].docks).concat([this.props.status[this.props.id].docks])
+        console.log(chartData)
         // [0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100]
         return(
             <div>

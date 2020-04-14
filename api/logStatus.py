@@ -18,15 +18,12 @@ def logStatus():
 
 
 	eastern = timezone('US/Eastern')
-	originTime = eastern.localize(datetime.strptime("2020-01-01 00:0", "%Y-%m-%d %H:%M"))
+	originTime = eastern.localize(datetime.strptime("2020-01-01 00:00", "%Y-%m-%d %H:%M"))
 
-	LogDelta=logTimeRounded-originTime
+
+	LogDelta=eastern.localize(datetime.strptime(logTimeRounded.strftime("%Y-%m-%d"+" 12:00"), "%Y-%m-%d %H:%M"))-originTime
 	logDateI=LogDelta.days
-	logTimeI = logTimeRounded.hour*60+logTimeRounded.minute
-
-
-	# print(lastLogTime[-5:])
-	# print(logTimeRounded.strftime("%H:%M"))
+	logTimeI =logTimeRounded.hour*60+logTimeRounded.minute
 	
 	with open("lastLog", 'w') as newlastLog:
 		    newlastLog.write(logTimeRounded.strftime("%Y-%m-%d %H:%M"))
