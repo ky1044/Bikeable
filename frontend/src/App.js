@@ -109,7 +109,7 @@ class App extends React.Component{
     fetch(`stationlog/${stationID}`).then(res=>res.json()).then(data=>(
       this.setStationLog(data,stationID)
     ))
-    console.log("updated station "+stationID+" logs")
+    // console.log("updated station "+stationID+" logs")
   }
 
   setStationLog(data,stationID){

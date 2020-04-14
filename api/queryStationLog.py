@@ -6,28 +6,7 @@ from pytz import timezone
 
 from sql import db, StatusLog
 
-def queryPastWeek(stationID):
 
-	queryTime = datetime.now(timezone('US/Eastern'))
-	queryTimeRounded = queryTime - timedelta(minutes=queryTime.minute % 5, seconds=queryTime.second, microseconds=queryTime.microsecond)
-
-	eastern = timezone('US/Eastern')
-	originTime = eastern.localize(datetime.strptime("2020-01-01 00:0", "%Y-%m-%d %H:%M"))
-
-	queryDelta=queryTimeRounded-originTime
-	queryDateI=queryDelta.days
-	queryTimeI= queryTimeRounded.hour*60+queryTimeRounded.minute
-
-
-	stationLog = StatusLog.query.filter_by(id=stationID).filter(StatusLog.dateI>=queryDateI-7).all()
-
-	weekLog = []
-
-	for log in stationLog:
-		# print({"datetime": log.dateTime,"bikes":log.bikes,"docks":log.bikes+log.docks})
-		print(log)
-		weekLog.append({"datetime": log.dateTime,"bikes":log.bikes,"docks":log.bikes+log.docks})
-	return weekLog
 
 def queryPastDay(stationID):
 
@@ -35,9 +14,10 @@ def queryPastDay(stationID):
 	queryTimeRounded = queryTime - timedelta(minutes=queryTime.minute % 5, seconds=queryTime.second, microseconds=queryTime.microsecond)
 
 	eastern = timezone('US/Eastern')
-	originTime = eastern.localize(datetime.strptime("2020-01-01 00:0", "%Y-%m-%d %H:%M"))
+	originTime = eastern.localize(datetime.strptime("2020-01-01 00:00", "%Y-%m-%d %H:%M"))
 
-	queryDelta=queryTimeRounded-originTime
+	
+	queryDelta=eastern.localize(datetime.strptime(queryTimeRounded.strftime("%Y-%m-%d"+" 12:00"), "%Y-%m-%d %H:%M"))-originTime
 	queryDateI=queryDelta.days
 	queryTimeI= queryTimeRounded.hour*60+queryTimeRounded.minute
 
@@ -68,7 +48,7 @@ def queryPastDay(stationID):
 	stationLog = StatusLog.query.filter_by(id=stationID).filter(StatusLog.dateI>=queryDateI-7).all()
 	for log in stationLog:
 		while log.timeI>TimeIList[timeIter]:
-			DayLog.append({"datetime": (datetime.strptime("2020-01-01 00:0", "%Y-%m-%d %H:%M")+timedelta(days=logDateI,minutes=TimeIList[timeIter])).strftime("%Y-%m-%d %H:%M"),"bikes":DayLog[-1]["bikes"],"docks":DayLog[-1]["docks"]})
+			DayLog.append({"datetime": (datetime.strptime("2020-01-01 00:00", "%Y-%m-%d %H:%M")+timedelta(days=logDateI,minutes=TimeIList[timeIter])).strftime("%Y-%m-%d %H:%M"),"bikes":DayLog[-1]["bikes"],"docks":DayLog[-1]["docks"]})
 			timeIter+=1
 			if timeIter>=len(TimeIList):
 				break
@@ -86,6 +66,106 @@ def queryPastDay(stationID):
 
 	return DayLog
 
+def queryPastWeek(stationID):
+
+	queryTime = datetime.now(timezone('US/Eastern'))
+	queryTimeRounded = queryTime - timedelta(minutes=queryTime.minute % 5, seconds=queryTime.second, microseconds=queryTime.microsecond)
+
+	eastern = timezone('US/Eastern')
+	originTime = eastern.localize(datetime.strptime("2020-01-01 00:0", "%Y-%m-%d %H:%M"))
+
+	queryDelta=eastern.localize(datetime.strptime(queryTimeRounded.strftime("%Y-%m-%d"+" 12:00"), "%Y-%m-%d %H:%M"))-originTime
+	queryDateI=queryDelta.days
+	queryTimeI= queryTimeRounded.hour*60+queryTimeRounded.minute
+
+
+	
+	
+	times = []
+	timeZero = datetime.strptime("00:00", "%H:%M")
+	for hourI in range(24):
+		for minI in range(0,60,5):
+			times.append((timeZero+timedelta(hours=hourI, minutes=minI)).strftime("%H:%M"))
+
+	Days = ["Wednesday","Thursday","Friday","Saturday","Sunday","Monday","Tuesday"]
+	#0:Wednesday
+	#1:Thursday
+	#2:Friday
+	#3:Saturday
+	#4:Sunday
+	#5:Monday
+	#6:Tuesday
+
+	weekLog = {
+		"times":times,
+		"Today":Days[queryDateI%7],
+		"bikesToday":[],
+		"bikesMonday":[],
+		"bikesTuesday":[],
+		"bikesWednesday":[],
+		"bikesThursday":[],
+		"bikesFriday":[],	
+		"bikesSaturday":[],	
+		"bikesSunday":[]
+	}
+	
+	TimeIList = [0]
+	for i in range(288):
+		TimeIList.append((TimeIList[-1]+5)%1440)
+
+	for dayofWeek in range(queryDateI-7,queryDateI):
+		timeIter = 0
+		stationLog = StatusLog.query.filter_by(id=stationID,dateI=dayofWeek).all()
+
+		for log in stationLog:
+			while log.timeI>TimeIList[timeIter]:
+				weekLog["bikes"+Days[dayofWeek%7]].append(-1)
+				timeIter+=1
+				if timeIter>=len(TimeIList):
+					break
+
+				
+
+			if log.timeI==TimeIList[timeIter]:
+				weekLog["bikes"+Days[dayofWeek%7]].append(log.bikes)
+				timeIter+=1
+				if timeIter>=len(TimeIList):
+					break
+		while timeIter<len(TimeIList):
+			weekLog["bikes"+Days[dayofWeek%7]].append(-1)
+			timeIter+=1
+			if timeIter>=len(TimeIList):
+				break
+
+			
+	timeIter = 0
+
+	stationLog = StatusLog.query.filter_by(id=stationID,dateI=queryDateI).all()
+
+	for log in stationLog:
+		while log.timeI>TimeIList[timeIter]:
+			weekLog["bikesToday"].append(-1)
+			timeIter+=1
+			if timeIter>=len(TimeIList):
+				break
+
+		if log.timeI==TimeIList[timeIter]:
+			weekLog["bikesToday"].append(log.bikes)
+			timeIter+=1
+			if timeIter>=len(TimeIList):
+				break
+	while timeIter<len(TimeIList):
+		weekLog["bikesToday"].append(-1)
+		timeIter+=1
+		if timeIter>=len(TimeIList):
+			break
+	return weekLog
+
+
 if __name__ == "__main__":
-	for i in queryPastDay(336):
-		print(i)
+	# for i in queryPastDay(336):
+	# 	print(i)
+	dic = queryPastWeek(336)
+	for i in dic:
+		pass
+		# print(i,dic[i])
