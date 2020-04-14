@@ -18,6 +18,7 @@ class App extends React.Component{
       logBikeCount:{},
       status:{},
       log :{},
+      logWeek :{},
       
       hasloaded:false,
 
@@ -33,6 +34,8 @@ class App extends React.Component{
     this.handleShowChange = this.handleShowChange.bind(this);
     this.getStationLog = this.getStationLog.bind(this);
     this.setStationLog = this.setStationLog.bind(this);
+    this.getStationLogWeek = this.getStationLogWeek.bind(this);
+    this.setStationLogWeek = this.setStationLogWeek.bind(this);
 
     
   }
@@ -92,6 +95,7 @@ class App extends React.Component{
          
        }
        this.getStationLog(stationList[stationI])
+       this.getStationLogWeek(stationList[stationI])
        
      }
      this.setState({
@@ -121,6 +125,25 @@ class App extends React.Component{
           [stationID]:data.stationLog
         }
       }))
+    
+  }
+
+  getStationLogWeek(stationID){
+    fetch(`stationlogweek/${stationID}`).then(res=>res.json()).then(data=>(
+      this.setStationLogWeek(data,stationID)
+    ))
+    // console.log("updated station "+stationID+" logs")
+  }
+
+  setStationLogWeek(data,stationID){
+
+      this.setState(prevState=>({
+        logWeek:{
+          ...prevState.logWeek,
+          [stationID]:data.stationLog
+        }
+      }))
+      // console.log(this.state.logWeek[stationID])
     
   }
 

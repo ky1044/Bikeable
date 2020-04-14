@@ -12,7 +12,7 @@ from updateCurrentStatus import updateCurrentStatus,CurrentStatus
 from logStatus import logStatus
 
 from getCurrentStatus import get_station_status
-from queryStationLog import queryPastDay
+from queryStationLog import queryPastDay, queryPastWeek
 
 
 app = flask.Flask(__name__)
@@ -38,6 +38,11 @@ def getStationInfo(coords):
 @app.route('/stationlog/<stationId>',methods=['GET'])
 def getStationLog(stationId):
 	return {"stationLog":queryPastDay(stationId)}
+
+@app.route('/stationlogweek/<stationId>',methods=['GET'])
+def getStationLogWeek(stationId):
+	return {"stationLog":queryPastWeek(stationId)}
+
 
 
 if __name__ == "__main__":

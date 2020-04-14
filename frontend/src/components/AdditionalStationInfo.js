@@ -3,6 +3,7 @@ import React from "react"
 
 import ChangeSinceLoad from "./ChangeSinceLoad"
 import DayChart from "./DayChart"
+import WeekChart from "./WeekChart"
 
 
 
@@ -30,6 +31,7 @@ class  AdditionalStationInfo extends React.Component{
                         <br/>
                         
                         <DayChart  {...this.props}/>
+                        <WeekChart  {...this.props}/>
                     </div>
                 }</div>
             )
