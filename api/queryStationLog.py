@@ -45,10 +45,16 @@ def queryPastDay(stationID):
 	# 	else:
 	# 		DayLog.append({"datetime": log.dateTime,"bikes":log.bikes,"docks":log.bikes+log.docks})
 
-	stationLog = StatusLog.query.filter_by(id=stationID).filter(StatusLog.dateI>=queryDateI-7).all()
+	stationLog = StatusLog.query.filter_by(id=stationID).filter(StatusLog.dateI>=queryDateI-1).all()
 	for log in stationLog:
+		# print(log)
 		while log.timeI>TimeIList[timeIter]:
-			DayLog.append({"datetime": (datetime.strptime("2020-01-01 00:00", "%Y-%m-%d %H:%M")+timedelta(days=logDateI,minutes=TimeIList[timeIter])).strftime("%Y-%m-%d %H:%M"),"bikes":DayLog[-1]["bikes"],"docks":DayLog[-1]["docks"]})
+			try:
+				DayLog.append({"datetime": (datetime.strptime("2020-01-01 00:00", "%Y-%m-%d %H:%M")+timedelta(days=logDateI,minutes=TimeIList[timeIter])).strftime("%Y-%m-%d %H:%M"),"bikes":DayLog[-1]["bikes"],"docks":DayLog[-1]["docks"]})
+
+			#in case there is no log for 00:00 at start of day, and data cannot be interpolated from previous log
+			except:
+				DayLog.append({"datetime": (datetime.strptime("2020-01-01 00:00", "%Y-%m-%d %H:%M")+timedelta(days=logDateI,minutes=TimeIList[timeIter])).strftime("%Y-%m-%d %H:%M"),"bikes":log.bikes,"docks":log.bikes+log.docks})
 			timeIter+=1
 			if timeIter>=len(TimeIList):
 				break
@@ -149,7 +155,7 @@ def queryPastWeek(stationID):
 			else:
 				if thisGap<=gapAllowed:
 					for i in range(thisGap):
-						weekLog["bikes"+Days[dayofWeek%7]][obs-i-1]=weekLog["bikes"+Days[dayofWeek%7]][thisGap]
+						weekLog["bikes"+Days[dayofWeek%7]][obs-i-1]=weekLog["bikes"+Days[dayofWeek%7]][obs-thisGap-1]
 				thisGap=0
 
 
@@ -183,7 +189,7 @@ def queryPastWeek(stationID):
 		else:
 			if thisGap<=gapAllowed:
 				for i in range(thisGap):
-					weekLog["bikesToday"][obs-i-1]=weekLog["bikesToday"][thisGap]
+					weekLog["bikesToday"][obs-i-1]=weekLog["bikesToday"][obs-thisGap-1]
 			thisGap=0
 
 
@@ -194,7 +200,8 @@ def queryPastWeek(stationID):
 if __name__ == "__main__":
 	# for i in queryPastDay(336):
 	# 	print(i)
-	dic = queryPastWeek(336)
+	dic = queryPastDay(336)
 	for i in dic:
+		pass
 		# pass
-		print(i,dic[i])
+		# print(i,dic[i])

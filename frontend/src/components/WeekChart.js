@@ -62,27 +62,30 @@ class  WeekChart extends React.Component{
             }
 
         ]
-        let timeNow = chartData&&chartData[7]["data"].filter(a=>a!=undefined).filter(a=>a["bikes"]!=undefined)[    
-            chartData[7]["data"].filter(a=>a!=undefined).filter(a=>a["bikes"]!=undefined).length-1
-        ]["time"]
-        // console.log(chartData&&chartData[7]["data"].filter(a=>a!=undefined).filter(a=>a["bikes"]!=undefined)[    
-        //     chartData[7]["data"].filter(a=>a!=undefined).filter(a=>a["bikes"]!=undefined).length-1
-        // ]["time"])
-        // console.log(timeNow)
+        
+        
 
 
-        const CustomDot = (props) => {
-            const {value, payload,cx,cy ,key} = props;
-            // console.log(payload.time===timeNow)
-            return payload.time===timeNow&&<Dot key={key} cx={cx}cy={cy}r={5} fill="white"/>
-        }
+        
 
 
         let xTicks = chartData && this.props.logWeek[this.props.id]["times"].filter(time => time.substring(time.length-2) ==="00").concat(chartData.map(log=>log.time)[chartData.length-1])
         let yTicks =this.props.status && [0,10,20,30,40,50,60,70,80,90,100].filter(x=>x<this.props.status[this.props.id].docks).concat([this.props.status[this.props.id].docks])
+
+        let timeNow = chartData&&chartData[7]["data"].filter(a=>a!=undefined).filter(a=>a["bikes"]!=undefined)[    
+            chartData[7]["data"].filter(a=>a!=undefined).filter(a=>a["bikes"]!=undefined).length-1
+        ]["time"]
+
+        const CustomDot = (props) => {
+            const {payload,cx,cy ,key} = props;
+            // console.log(payload.time===timeNow)
+            return payload.time===timeNow&&<Dot key={key} cx={cx}cy={cy}r={5} fill="white"/>
+        }
+        
+
         return(
             <div>
-                <h4 align ="center">daily bike count of past 8 days (smoothened)</h4>
+                <h4 align ="center">bike count of past week (every 30 mins)</h4>
                 <ResponsiveContainer width="100%" height={300}>
                     <LineChart  data={chartData} margin={{ top: 5, right: 30, bottom: 5, left: 0 }}>
                     
