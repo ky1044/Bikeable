@@ -82,7 +82,7 @@ class  WeekChart extends React.Component{
         let yTicks =this.props.status && [0,10,20,30,40,50,60,70,80,90,100].filter(x=>x<this.props.status[this.props.id].docks).concat([this.props.status[this.props.id].docks])
         return(
             <div>
-                <h4 align ="center">daily bike count over past week</h4>
+                <h4 align ="center">daily bike count of past 8 days (smoothened)</h4>
                 <ResponsiveContainer width="100%" height={300}>
                     <LineChart  data={chartData} margin={{ top: 5, right: 30, bottom: 5, left: 0 }}>
                     

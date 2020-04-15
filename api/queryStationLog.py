@@ -67,6 +67,9 @@ def queryPastDay(stationID):
 	return DayLog
 
 def queryPastWeek(stationID):
+	interval = 30
+	frequency = int(1440/interval)
+	gapAllowed = int(60/interval)
 
 	queryTime = datetime.now(timezone('US/Eastern'))
 	queryTimeRounded = queryTime - timedelta(minutes=queryTime.minute % 5, seconds=queryTime.second, microseconds=queryTime.microsecond)
@@ -84,7 +87,7 @@ def queryPastWeek(stationID):
 	times = []
 	timeZero = datetime.strptime("00:00", "%H:%M")
 	for hourI in range(24):
-		for minI in range(0,60,5):
+		for minI in range(0,60,interval):
 			times.append((timeZero+timedelta(hours=hourI, minutes=minI)).strftime("%H:%M"))
 
 	Days = ["Wednesday","Thursday","Friday","Saturday","Sunday","Monday","Tuesday"]
@@ -110,9 +113,11 @@ def queryPastWeek(stationID):
 	}
 	
 	TimeIList = [0]
-	for i in range(288):
-		TimeIList.append((TimeIList[-1]+5)%1440)
+	for i in range(frequency):
+		TimeIList.append((TimeIList[-1]+interval))
 
+
+	#fill in data for past week, not today
 	for dayofWeek in range(queryDateI-7,queryDateI):
 		timeIter = 0
 		stationLog = StatusLog.query.filter_by(id=stationID,dateI=dayofWeek).all()
@@ -137,7 +142,18 @@ def queryPastWeek(stationID):
 			if timeIter>=len(TimeIList):
 				break
 
-			
+		thisGap = 0
+		for obs in range(len(weekLog["bikes"+Days[dayofWeek%7]])):
+			if weekLog["bikes"+Days[dayofWeek%7]][obs]==-1:
+				thisGap+=1
+			else:
+				if thisGap<=gapAllowed:
+					for i in range(thisGap):
+						weekLog["bikes"+Days[dayofWeek%7]][obs-i-1]=weekLog["bikes"+Days[dayofWeek%7]][thisGap]
+				thisGap=0
+
+
+	#fill in data for today
 	timeIter = 0
 
 	stationLog = StatusLog.query.filter_by(id=stationID,dateI=queryDateI).all()
@@ -159,6 +175,19 @@ def queryPastWeek(stationID):
 		timeIter+=1
 		if timeIter>=len(TimeIList):
 			break
+
+	thisGap = 0
+	for obs in range(len(weekLog["bikesToday"])):
+		if weekLog["bikesToday"][obs]==-1:
+			thisGap+=1
+		else:
+			if thisGap<=gapAllowed:
+				for i in range(thisGap):
+					weekLog["bikesToday"][obs-i-1]=weekLog["bikesToday"][thisGap]
+			thisGap=0
+
+
+
 	return weekLog
 
 
@@ -167,5 +196,5 @@ if __name__ == "__main__":
 	# 	print(i)
 	dic = queryPastWeek(336)
 	for i in dic:
-		pass
-		# print(i,dic[i])
+		# pass
+		print(i,dic[i])
