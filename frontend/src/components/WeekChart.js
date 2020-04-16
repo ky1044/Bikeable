@@ -17,7 +17,7 @@ class  WeekChart extends React.Component{
                 return {"time":this.props.logWeek[this.props.id]["times"][index],"bikes":numBikes}
 
             }
-        }).filter( time=>time!=undefined)
+        }).filter( time=>time!==undefined)
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -72,8 +72,8 @@ class  WeekChart extends React.Component{
         let xTicks = chartData && this.props.logWeek[this.props.id]["times"].filter(time => time.substring(time.length-2) ==="00").concat(chartData.map(log=>log.time)[chartData.length-1])
         let yTicks =this.props.status && [0,10,20,30,40,50,60,70,80,90,100].filter(x=>x<this.props.status[this.props.id].docks).concat([this.props.status[this.props.id].docks])
 
-        let timeNow = chartData&&chartData[7]["data"].filter(a=>a!=undefined).filter(a=>a["bikes"]!=undefined)[    
-            chartData[7]["data"].filter(a=>a!=undefined).filter(a=>a["bikes"]!=undefined).length-1
+        let timeNow = chartData&&chartData[7]["data"].filter(a=>a!==undefined).filter(a=>a["bikes"]!==undefined)[    
+            chartData[7]["data"].filter(a=>a!==undefined).filter(a=>a["bikes"]!==undefined).length-1
         ]["time"]
 
         const CustomDot = (props) => {
@@ -94,7 +94,7 @@ class  WeekChart extends React.Component{
                     <XAxis dataKey="time" allowDuplicatedCategory={false} ticks ={xTicks}/>
                     <YAxis  dataKey="bikes" domain={[0, this.props.status[this.props.id].docks]} ticks = {yTicks}/>
                     {chartData.map(s => (
-                        <Line dataKey="bikes" data={s.data} name={s.name} key={s.name} dot = {s.name=="Today"&&CustomDot} isAnimationActive ={true}  type="monotone" dataKey="bikes" stroke="#00deff" strokeWidth={s.name=="Today"?5:4} animationDuration={500} opacity={s.name=="Today"?1:0.5} />
+                        <Line dataKey="bikes" data={s.data} name={s.name} key={s.name} dot = {s.name==="Today"&&CustomDot} isAnimationActive ={true}  type="monotone" stroke="#00deff" strokeWidth={s.name==="Today"?5:4} animationDuration={500} opacity={s.name==="Today"?1:0.5} />
                     ))}
                     <Tooltip wrapperStyle = {{color:"black"}} itemStyle = {{color:"black"}} animationEasing = "ease"/>
                     </LineChart>

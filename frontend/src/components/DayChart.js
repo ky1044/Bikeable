@@ -4,9 +4,6 @@ import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip ,ResponsiveContai
 
 class  DayChart extends React.Component{
 
-    constructor(props) {
-        super(props);
-    }
     shouldComponentUpdate(nextProps, nextState) {
         return  nextProps.showInfo!==this.props.showInfo||nextProps.log!==this.props.log ;    
       }
@@ -26,7 +23,7 @@ class  DayChart extends React.Component{
         let timeNow = chartData && chartData.map(log=>log.time)[chartData.length-1]
 
         const CustomDot = (props) => {
-            const {value, payload,cx,cy ,key} = props;
+            const {payload,cx,cy ,key} = props;
             return payload.time===timeNow&&<Dot key={key} cx={cx}cy={cy}r={5} fill="white"/>
         }
         return(

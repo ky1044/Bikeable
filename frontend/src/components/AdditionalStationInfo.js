@@ -9,9 +9,6 @@ import WeekChart from "./WeekChart"
 
 class  AdditionalStationInfo extends React.Component{
 
-        constructor(props) {
-            super(props);
-        }
         shouldComponentUpdate(nextProps, nextState) {
             return  nextProps.showInfo!==this.props.showInfo||nextProps.timeSinceLoad-this.props.timeSinceLoad > 100;    
           }
