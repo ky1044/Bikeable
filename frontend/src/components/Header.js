@@ -12,7 +12,7 @@ function Header(){
           </p>
         </div>
       </div>
-      <br/>
+      <div style={{height:8}}/>
     </div>
     )
 }

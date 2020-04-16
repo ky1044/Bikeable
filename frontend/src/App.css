@@ -83,6 +83,21 @@ h1,h2,h3,h4,h5,p{
 
 }
 
+.walk-container{
+  /* padding:10px; */
+  margin:auto;
+  width:max(300px,90vw);
+  align-self:center;
+  overflow: hidden;
+
+  text-align:right;
+  color: #555555;
+
+  /* border: .5px solid #555555;
+  border-radius: 4px; */
+
+}
+
 .additional-info-toggle{
   /* background-color: #222222;  */
   border: none;

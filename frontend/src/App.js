@@ -217,10 +217,11 @@ class App extends React.Component{
         <Header/>
         {!this.state.hasloaded&&<h2 style={{textAlign: "center"}}>Loading...</h2>}
         <LocationCard {...this.state} handleLocationChange = {this.handleLocationChange} />
-        {this.state.stations.map( id =>(
+        {this.state.stations.map( (id,index )=>(
           <StationCard
           key={id}
           id = {id}
+          index = {index}
           {...this.state}
 
           handleShowChange = {this.handleShowChange}

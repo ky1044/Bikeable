@@ -5,13 +5,13 @@ function LocationCard(props){
         <div>
             
             <div className = "location-container">
-            {props.hasloaded&&<h4 >Current Location: {props.selectedLocation}</h4>}
+            {props.hasloaded&&<h3 >Current Location: {props.selectedLocation}</h3>}
             
             {Object.keys(props.locationCoordinates).map((key,index)=>(
-            props.hasloaded&&props.selectedLocation!==key&&<h5 style={{float:"left"}}className = "location-option" onClick={()=>props.handleLocationChange(key) }>{key}</h5>
+            props.hasloaded&&props.selectedLocation!==key&&<h5 key = {key} style={{float:"left"}}className = "location-option" onClick={()=>props.handleLocationChange(key) }>{key}</h5>
             ))}
             </div>
-            <br style = {{clear:"both"}}/>
+            <div style = {{height:8,clear:"both"}}/>
         </div>
     )
 }

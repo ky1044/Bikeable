@@ -1,6 +1,7 @@
 import React from "react"
 import AdditionalStationInfoToggle from "./AdditionalStationInfoToggle"
 import AdditionalStationInfo from "./AdditionalStationInfo"
+import WalkingTimeLine from "./WalkingTimeLine"
 function StationCard(props){
     return (
         <div>
@@ -15,7 +16,7 @@ function StationCard(props){
 
                 
             </div>
-            <br/>
+            <WalkingTimeLine {...props}/>
         </div>
     )
 }
