@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 
 import Header from "./components/Header"
+import LocationCard from "./components/LocationCard"
 import StationCard from "./components/StationCard"
 import Footer from "./components/Footer"
 
@@ -10,6 +11,16 @@ class App extends React.Component{
     super()
     this.state = {
       warnings:null,
+
+      selectedLocation:"Washington Square Park",
+      locationCoordinates:{
+        "Washington Square Park":{latitude :40.7308,longitude:73.9973},
+        "Union Square Park":{latitude:40.7359, longitude:73.9911},
+        "Times Square":{latitude:40.7580,longitude:73.9911},
+        "Bowling Green":{latitude:40.7050, longitude:74.0137},
+        "The MET":{latitude:40.7794, longitude:73.9632},
+        "Penn Station":{latitude:40.7506,longitude:73.9935}
+      },
       latitude :40.7308,
       longitude:73.9973,
       numStations:5,
@@ -38,12 +49,13 @@ class App extends React.Component{
     this.getStationLogWeek = this.getStationLogWeek.bind(this);
     this.setStationLogWeek = this.setStationLogWeek.bind(this);
     this.loadMoreStations = this.loadMoreStations.bind(this);
+    this.handleLocationChange = this.handleLocationChange.bind(this);
 
     
   }
 
   getStationStatus(){
-    fetch(`stationstatus/${this.state.numStations}/${this.state.latitude},${this.state.longitude}`).then(res=>res.json()).then(data=>(
+    fetch(`stationstatus/${this.state.numStations}/${this.state.locationCoordinates[this.state.selectedLocation].latitude},${this.state.locationCoordinates[this.state.selectedLocation].longitude}`).then(res=>res.json()).then(data=>(
       this.setStationStatus(data)
     ))
   }
@@ -160,6 +172,26 @@ class App extends React.Component{
      }})
   }
 
+  async handleLocationChange(name){
+    await this.setState( {
+      selectedLocation:name,
+      numStations:5,
+      stations:[],
+      initialBikeCount:{},
+      logBikeCount:{},
+      status:{},
+      log :{},
+      logWeek :{},
+      hasloaded:false,
+      loadTime: null,
+      updateTime :null,
+      timeSinceUpdate:null,
+      timeSinceLoad:null,
+      showInfo:{}
+    })
+    this.getStationStatus()
+  }
+
   async loadMoreStations(){
     await this.setState(prevState=>({
       numStations: prevState.numStations+5
@@ -184,7 +216,7 @@ class App extends React.Component{
       <div>
         <Header/>
         {!this.state.hasloaded&&<h2 style={{textAlign: "center"}}>Loading...</h2>}
-
+        <LocationCard {...this.state} handleLocationChange = {this.handleLocationChange} />
         {this.state.stations.map( id =>(
           <StationCard
           key={id}

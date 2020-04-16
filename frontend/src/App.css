@@ -39,6 +39,38 @@ h1,h2,h3,h4,h5,p{
 }
 
 
+.location-container{
+  padding:10px;
+  margin:auto;
+  width:min(max(300px,90vw),800px);
+  align-self:center;
+  overflow: hidden;
+
+
+}
+.location-option{
+  background-color: #1a1a1a; 
+  /* border: .5px solid #555555; */
+  border-radius: 4px;
+  width:fit-content; 
+  
+  padding: 6px 10px;
+  
+  
+  color: white;
+  /* text-decoration: underline; */
+  font-weight: bold;
+  
+  cursor:pointer;
+  text-align: right;
+
+  margin-left: auto;
+  margin-right: 8px;
+  margin-bottom:4px;
+
+
+}
+
 .station-container{
   padding:10px;
   margin:auto;

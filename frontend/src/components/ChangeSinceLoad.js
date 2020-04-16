@@ -14,15 +14,15 @@ function ChangeSinceLoad(logBikeCount,timeSinceUpdate){
     if (logBikeCount.length>=1){
         let bikeChange = logBikeCount[logBikeCount.length-1]-logBikeCount[0]
         if (bikeChange===0){
-            return "Number of bikes is same as when page was loaded "+timeAgo
+            return "Number of bikes is same as when station status was first loaded "+timeAgo
         }else if (bikeChange>1){
-            return bikeChange.toString()+" more bikes since page was loaded "+timeAgo
+            return bikeChange.toString()+" more bikes since station status was first was loaded "+timeAgo
         }else if (bikeChange===1){
-            return "1 more bike since page was loaded "+timeAgo
+            return "1 more bike since station status was first was loaded "+timeAgo
         }else if (bikeChange<-1){
-            return (-bikeChange).toString()+" fewer bikes since page was loaded "+timeAgo
+            return (-bikeChange).toString()+" fewer bikes since station status was first was loaded "+timeAgo
         }else if (bikeChange===-1){
-            return "1 fewer bike since page was loaded "+timeAgo
+            return "1 fewer bike since station status was first was loaded "+timeAgo
         }
     }else{
         return""
