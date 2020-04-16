@@ -12,6 +12,7 @@ class App extends React.Component{
       warnings:null,
       latitude :40.7308,
       longitude:73.9973,
+      numStations:5,
 
       stations:[],
       initialBikeCount:{},
@@ -36,12 +37,13 @@ class App extends React.Component{
     this.setStationLog = this.setStationLog.bind(this);
     this.getStationLogWeek = this.getStationLogWeek.bind(this);
     this.setStationLogWeek = this.setStationLogWeek.bind(this);
+    this.loadMoreStations = this.loadMoreStations.bind(this);
 
     
   }
 
   getStationStatus(){
-    fetch(`stationstatus/${this.state.latitude},${this.state.longitude}`).then(res=>res.json()).then(data=>(
+    fetch(`stationstatus/${this.state.numStations}/${this.state.latitude},${this.state.longitude}`).then(res=>res.json()).then(data=>(
       this.setStationStatus(data)
     ))
   }
@@ -158,6 +160,14 @@ class App extends React.Component{
      }})
   }
 
+  async loadMoreStations(){
+    await this.setState(prevState=>({
+      numStations: prevState.numStations+5
+    }))
+    this.getStationStatus()
+
+  }
+
   componentDidMount() {
     this.getStationStatus()
     setInterval(() => this.setState(prevState=>({ timeSinceUpdate: Date.now()-prevState.updateTime,timeSinceLoad:Date.now()-prevState.loadTime})), 100)
@@ -184,6 +194,9 @@ class App extends React.Component{
           handleShowChange = {this.handleShowChange}
           />
         ) )}
+      
+          {this.state.hasloaded && this.state.stations.length<30 && <div><h3 className = "load-more" onClick={()=>this.loadMoreStations() }>Load More Stations</h3><br/></div>}
+
         {this.state.hasloaded&&<Footer/>}
 
       </div>

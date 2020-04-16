@@ -23,12 +23,14 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 
 db = SQLAlchemy(app)
 
-@app.route('/stationstatus/<coords>',methods=['GET'])
-def getStationInfo(coords):
+@app.route('/stationstatus/<count>/<coords>',methods=['GET'])
+def getStationInfo(count,coords):
 	lat,lon=coords.split(",")
 	lat = float(lat)
 	lon = float(lon)
-	status = get_station_status(lat, -lon )
+	count = int(count)
+	status = get_station_status(lat, -lon,count )
+
 	# status = []
 	# print(status)
 	for i in status:

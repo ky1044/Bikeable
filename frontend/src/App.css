@@ -73,3 +73,26 @@ h1,h2,h3,h4,h5,p{
   width:100%;
 
 }
+
+.load-more{
+  background-color: #1a1a1a; 
+  /* border: .5px solid #555555; */
+  border-radius: 4px;
+  width:fit-content; 
+  
+  padding: 6px 10px;
+  margin:8px;
+  
+  
+  color: white;
+  /* text-decoration: underline; */
+  font-weight: bold;
+  
+  cursor:pointer;
+  text-align: right;
+
+  margin-left: auto;
+  margin-right: auto;
+
+
+}
