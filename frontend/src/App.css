@@ -38,6 +38,37 @@ h1,h2,h3,h4,h5,p{
   margin:0px;
 }
 
+.general-info-container{
+  padding-right:10px;
+  padding-left:10px;
+  padding-top:10px;
+  margin:auto;
+  width:min(max(300px,90vw),800px);
+  align-self:center;
+  overflow: hidden;
+  
+
+
+}
+
+.general-info{
+  width:min(max(300px,90vw),800px);
+  align-self:center;
+  overflow: hidden;
+  position:absolute;
+  
+  height: 100px;
+  /* width: 100px; */
+  position: absolute;
+  left: -min(max(300px,90vw),800px);
+  margin-left: -50px;
+  top: 130px;
+  margin-top: -50px;
+
+  /* transform: translateY(-80%); */
+
+  text-align:left;
+}
 
 .location-container{
   padding:10px;
@@ -129,6 +160,8 @@ h1,h2,h3,h4,h5,p{
   
   padding: 6px 10px;
   margin:8px;
+  margin-top:0px;
+  margin-bottom:50px;
   
   
   color: white;

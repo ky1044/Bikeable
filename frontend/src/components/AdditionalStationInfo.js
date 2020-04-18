@@ -28,7 +28,7 @@ class  AdditionalStationInfo extends React.Component{
                         <br/>
                         
                         <DayChart  {...this.props}/>
-                        <WeekChart  {...this.props}/>
+                        {this.props.logWeek[this.props.id]&&<WeekChart  {...this.props}/>}
                     </div>
                 }</div>
             )

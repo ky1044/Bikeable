@@ -4,6 +4,9 @@ import sys
 import time
 import requests
 
+from datetime import datetime
+from pytz import timezone
+
 from flask_sqlalchemy import SQLAlchemy
 
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -30,12 +33,18 @@ def getStationInfo(count,coords):
 	lon = float(lon)
 	count = int(count)
 	status = get_station_status(lat, -lon,count )
-
-	# status = []
-	# print(status)
 	for i in status:
 		i["distance"]=int(i["distance"])
-	return {"stationStatus":status }
+	weather = open("currentWeather","r").readline().split(",")
+	return {
+		"stationStatus":status ,
+		"date":datetime.now(timezone('US/Eastern')).strftime("%A, %B %d"),
+		"time": datetime.now(timezone('US/Eastern')).strftime("%I:%M %p"),
+		"weatherTemperature":weather[0]+"°C",
+		"weatherDescription":weather[1]
+
+
+	}
 
 @app.route('/stationlog/<stationId>',methods=['GET'])
 def getStationLog(stationId):

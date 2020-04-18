@@ -25,6 +25,12 @@ class App extends React.Component{
       longitude:73.9973,
       numStations:5,
 
+      time:"",
+      date:"",
+
+      weather:"",
+      temperature:"",
+
       stations:[],
       initialBikeCount:{},
       logBikeCount:{},
@@ -71,7 +77,12 @@ class App extends React.Component{
      }
 
      this.setState({
-      updateTime: Date.now()
+      updateTime: Date.now(),
+      date:data.date,
+      time: data.time,
+      temperature:data.weatherTemperature,
+      weather: data.weatherDescription
+      
     })
          
 
@@ -80,8 +91,10 @@ class App extends React.Component{
         status:{
           ...prevState.status,
           [stationList[stationI]]:data.stationStatus[stationI]
+          
         }
        }));
+       console.log(data)
       
        if (stationList[stationI] in this.state.initialBikeCount){
          const prevStationState = this.state.logBikeCount[stationList[stationI]].concat([this.state.status[stationList[stationI]].bikes])
@@ -214,8 +227,9 @@ class App extends React.Component{
     return (
     
       <div>
-        <Header/>
+        <Header {...this.state}/>
         {!this.state.hasloaded&&<h2 style={{textAlign: "center"}}>Loading...</h2>}
+        {this.state.hasloaded&&<div className = "general-info-container" style={{color:"#aaaaaa"}}><h4 style={{float:"left"}}>{this.state.time}, {this.state.date}</h4><h4 style={{float:"right"}}>{this.state.temperature}, {this.state.weather}</h4></div>}        
         <LocationCard {...this.state} handleLocationChange = {this.handleLocationChange} />
         {this.state.stations.map( (id,index )=>(
           <StationCard
