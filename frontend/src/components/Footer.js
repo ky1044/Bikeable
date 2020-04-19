@@ -1,9 +1,9 @@
 import React from "react"
 
-function Footer(){
+function Footer(props){
     return(
         <div className = "footer">
-            <p style={{textAlign: "center",color:"#313131",marginBottom:10}}>Made by Ken Yokokawa. Source code on <a href="https://github.com/ky1044/Bikeable" style={{color:"#313131"}}>Github</a>.</p>
+            {props.hasloaded &&<p style={{textAlign: "center",color:"#313131",marginBottom:10}}>Made by Ken Yokokawa. Source code on <a href="https://github.com/ky1044/Bikeable" style={{color:"#313131"}}>Github</a>.</p>}
             <br/>
         </div>    
     )

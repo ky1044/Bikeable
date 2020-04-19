@@ -2,17 +2,16 @@ import React from 'react';
 import './App.css';
 
 import Header from "./components/Header"
-import LocationCard from "./components/LocationCard"
-import StationCard from "./components/StationCard"
+import Dashboard from "./components/Dashboard"
+import Stations from "./components/Stations"
 import Footer from "./components/Footer"
 
 class App extends React.Component{
   constructor(){
     super()
     this.state = {
-      warnings:null,
 
-      selectedLocation:"Washington Square Park",
+      selectedLocation:"Union Square Park",
       locationCoordinates:{
         "Washington Square Park":{latitude :40.7308,longitude:73.9973},
         "Union Square Park":{latitude:40.7359, longitude:73.9911},
@@ -21,43 +20,40 @@ class App extends React.Component{
         "The MET":{latitude:40.7794, longitude:73.9632},
         "Penn Station":{latitude:40.7506,longitude:73.9935}
       },
-      latitude :40.7308,
-      longitude:73.9973,
       numStations:5,
 
       time:"",
       date:"",
-
       weather:"",
       temperature:"",
 
       stations:[],
       initialBikeCount:{},
-      logBikeCount:{},
       status:{},
-      log :{},
-      logWeek :{},
+      showInfo:{},
+      dayLog :{},
+      weekLog :{},
       
       hasloaded:false,
 
       loadTime: null,
       updateTime :null,
       timeSinceUpdate:null,
-      timeSinceLoad:null,
+      timeSinceLoad:null
       
-      showInfo:{}
     }
     this.getStationStatus = this.getStationStatus.bind(this);
     this.setStationStatus = this.setStationStatus.bind(this);
-    this.handleShowChange = this.handleShowChange.bind(this);
-    this.getStationLog = this.getStationLog.bind(this);
-    this.setStationLog = this.setStationLog.bind(this);
-    this.getStationLogWeek = this.getStationLogWeek.bind(this);
-    this.setStationLogWeek = this.setStationLogWeek.bind(this);
-    this.loadMoreStations = this.loadMoreStations.bind(this);
-    this.handleLocationChange = this.handleLocationChange.bind(this);
 
-    
+    this.getStationDayLog = this.getStationDayLog.bind(this);
+    this.setStationDayLog = this.setStationDayLog.bind(this);
+
+    this.getStationWeekLog = this.getStationWeekLog.bind(this);
+    this.setStationWeekLog = this.setStationWeekLog.bind(this);
+
+    this.handleLocationChange = this.handleLocationChange.bind(this);
+    this.handleShowChange = this.handleShowChange.bind(this);
+    this.loadMoreStations = this.loadMoreStations.bind(this);
   }
 
   getStationStatus(){
@@ -65,6 +61,7 @@ class App extends React.Component{
       this.setStationStatus(data)
     ))
   }
+
   setStationStatus(data){
 
     let stationList = data.stationStatus.map(station=>{return station.id})
@@ -96,15 +93,7 @@ class App extends React.Component{
        }));
        console.log(data)
       
-       if (stationList[stationI] in this.state.initialBikeCount){
-         const prevStationState = this.state.logBikeCount[stationList[stationI]].concat([this.state.status[stationList[stationI]].bikes])
-        this.setState(prevState=>({ 
-          logBikeCount:{
-            ...prevState.logBikeCount,
-            [stationList[stationI]]:prevStationState
-          }
-         }));
-       }else{
+       if (!(stationList[stationI] in this.state.initialBikeCount)){
         this.setState(prevState=>({ 
           showInfo:{
             ...prevState.showInfo,
@@ -114,15 +103,11 @@ class App extends React.Component{
             ...prevState.initialBikeCount,
             [stationList[stationI]]:this.state.status[stationList[stationI]].bikes
           },
-          logBikeCount:{
-            ...prevState.logBikeCount,
-            [stationList[stationI]]:[this.state.status[stationList[stationI]].bikes]
-          }
-         }));
-         
-       }
-       this.getStationLog(stationList[stationI])
-       this.getStationLogWeek(stationList[stationI])
+
+          }));
+      }
+       this.getStationDayLog(stationList[stationI])
+       this.getStationWeekLog(stationList[stationI])
        
      }
      this.setState({
@@ -136,42 +121,60 @@ class App extends React.Component{
      console.log("updated station status")
   }
 
-  getStationLog(stationID){
+  getStationDayLog(stationID){
     fetch(`stationlog/${stationID}`).then(res=>res.json()).then(data=>(
-      this.setStationLog(data,stationID)
+      this.setStationDayLog(data,stationID)
     ))
     // console.log("updated station "+stationID+" logs")
   }
 
-  setStationLog(data,stationID){
-
+  setStationDayLog(data,stationID){
 
       this.setState(prevState=>({
-        log:{
-          ...prevState.log,
+        dayLog:{
+          ...prevState.dayLog,
           [stationID]:data.stationLog
         }
       }))
     
   }
 
-  getStationLogWeek(stationID){
+  getStationWeekLog(stationID){
     fetch(`stationlogweek/${stationID}`).then(res=>res.json()).then(data=>(
-      this.setStationLogWeek(data,stationID)
+      this.setStationWeekLog(data,stationID)
     ))
-    // console.log("updated station "+stationID+" logs")
   }
 
-  setStationLogWeek(data,stationID){
+  setStationWeekLog(data,stationID){
 
       this.setState(prevState=>({
-        logWeek:{
-          ...prevState.logWeek,
+        weekLog:{
+          ...prevState.weekLog,
           [stationID]:data.stationLog
         }
       }))
-      // console.log(this.state.logWeek[stationID])
+      // console.log(this.state.weekLog[stationID])
     
+  }
+
+  async handleLocationChange(name){
+    await this.setState( {
+      selectedLocation:name,
+      numStations:5,
+      stations:[],
+      initialBikeCount:{},
+      logBikeCount:{},
+      status:{},
+      dayLog :{},
+      weekLog :{},
+      hasloaded:false,
+      loadTime: null,
+      updateTime :null,
+      timeSinceUpdate:null,
+      timeSinceLoad:null,
+      showInfo:{}
+    })
+    this.getStationStatus()
   }
 
   handleShowChange(id){
@@ -185,32 +188,11 @@ class App extends React.Component{
      }})
   }
 
-  async handleLocationChange(name){
-    await this.setState( {
-      selectedLocation:name,
-      numStations:5,
-      stations:[],
-      initialBikeCount:{},
-      logBikeCount:{},
-      status:{},
-      log :{},
-      logWeek :{},
-      hasloaded:false,
-      loadTime: null,
-      updateTime :null,
-      timeSinceUpdate:null,
-      timeSinceLoad:null,
-      showInfo:{}
-    })
-    this.getStationStatus()
-  }
-
   async loadMoreStations(){
     await this.setState(prevState=>({
       numStations: prevState.numStations+5
     }))
     this.getStationStatus()
-
   }
 
   componentDidMount() {
@@ -220,32 +202,13 @@ class App extends React.Component{
       
   }
 
-
-
   render(){
-
     return (
-    
       <div>
         <Header {...this.state}/>
-        {!this.state.hasloaded&&<h2 style={{textAlign: "center"}}>Loading...</h2>}
-        {this.state.hasloaded&&<div className = "general-info-container" style={{color:"#aaaaaa"}}><h4 style={{float:"left"}}>{this.state.time}, {this.state.date}</h4><h4 style={{float:"right"}}>{this.state.temperature}, {this.state.weather}</h4></div>}        
-        <LocationCard {...this.state} handleLocationChange = {this.handleLocationChange} />
-        {this.state.stations.map( (id,index )=>(
-          <StationCard
-          key={id}
-          id = {id}
-          index = {index}
-          {...this.state}
-
-          handleShowChange = {this.handleShowChange}
-          />
-        ) )}
-      
-          {this.state.hasloaded && this.state.stations.length<30 && <div><h3 className = "load-more" onClick={()=>this.loadMoreStations() }>Load More Stations</h3><br/></div>}
-
-        {this.state.hasloaded&&<Footer/>}
-
+        <Dashboard{...this.state} handleLocationChange = {this.handleLocationChange}/>
+        <Stations{...this.state} handleShowChange = {this.handleShowChange} loadMoreStations = {this.loadMoreStations}/>
+        <Footer {...this.state}/>
       </div>
     );
   }

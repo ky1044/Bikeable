@@ -5,16 +5,16 @@ import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip ,ResponsiveContai
 class  DayChart extends React.Component{
 
     shouldComponentUpdate(nextProps, nextState) {
-        return  nextProps.showInfo!==this.props.showInfo||nextProps.log!==this.props.log ;    
+        return  nextProps.showInfo!==this.props.showInfo||nextProps.dayLog!==this.props.dayLog ;    
       }
 
     
     render(){
         
-        let chartData = this.props.showInfo[this.props.id] && this.props.log[this.props.id] && this.props.log[this.props.id].map(log=>({
+        let chartData = this.props.showInfo[this.props.id] && this.props.dayLog[this.props.id] && this.props.dayLog[this.props.id].map(log=>({
             "time":log.datetime.substring(log.datetime.length-5),
             "bikes":log.bikes
-        })).slice(Math.max(this.props.log[this.props.id].length - 288, 0))
+        })).slice(Math.max(this.props.dayLog[this.props.id].length - 288, 0))
 
         let xTicks = chartData && chartData.map(log=>log.time).filter(time => time.substring(time.length-2) ==="00").concat(chartData.map(log=>log.time)[chartData.length-1])
         let yTicks =this.props.status && [0,10,20,30,40,50,60,70,80,90,100].filter(x=>x<this.props.status[this.props.id].docks).concat([this.props.status[this.props.id].docks])

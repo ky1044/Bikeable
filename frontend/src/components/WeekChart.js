@@ -12,16 +12,16 @@ class  WeekChart extends React.Component{
     makeDayArray(array){
         return array.map((numBikes, index)=>{
             if (numBikes===-1){
-                return {"time":this.props.logWeek[this.props.id]["times"][index],"bikes":undefined}
+                return {"time":this.props.weekLog[this.props.id]["times"][index],"bikes":undefined}
             }else{
-                return {"time":this.props.logWeek[this.props.id]["times"][index],"bikes":numBikes}
+                return {"time":this.props.weekLog[this.props.id]["times"][index],"bikes":numBikes}
 
             }
         }).filter( time=>time!==undefined)
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        return  nextProps.showInfo!==this.props.showInfo||nextProps.logWeek!==this.props.logWeek ;    
+        return  nextProps.showInfo!==this.props.showInfo||nextProps.weekLog!==this.props.weekLog ;    
       }
 
     
@@ -30,35 +30,35 @@ class  WeekChart extends React.Component{
             
             {
                 name:"Monday",
-                data:this.makeDayArray(this.props.logWeek[this.props.id]["bikesMonday"])
+                data:this.makeDayArray(this.props.weekLog[this.props.id]["bikesMonday"])
             },
             {
                 name:"Tuesday",
-                data:this.makeDayArray(this.props.logWeek[this.props.id]["bikesTuesday"])
+                data:this.makeDayArray(this.props.weekLog[this.props.id]["bikesTuesday"])
             },
             {
                 name:"Wednesday",
-                data:this.makeDayArray(this.props.logWeek[this.props.id]["bikesWednesday"])
+                data:this.makeDayArray(this.props.weekLog[this.props.id]["bikesWednesday"])
             },
             {
                 name:"Thursday",
-                data:this.makeDayArray(this.props.logWeek[this.props.id]["bikesThursday"])
+                data:this.makeDayArray(this.props.weekLog[this.props.id]["bikesThursday"])
             },
             {
                 name:"Friday",
-                data:this.makeDayArray(this.props.logWeek[this.props.id]["bikesFriday"])
+                data:this.makeDayArray(this.props.weekLog[this.props.id]["bikesFriday"])
             },
             {
                 name:"Saturday",
-                data:this.makeDayArray(this.props.logWeek[this.props.id]["bikesSaturday"])
+                data:this.makeDayArray(this.props.weekLog[this.props.id]["bikesSaturday"])
             },
             {
                 name:"Sunday",
-                data:this.makeDayArray(this.props.logWeek[this.props.id]["bikesSunday"])
+                data:this.makeDayArray(this.props.weekLog[this.props.id]["bikesSunday"])
             },
             {
                 name:"Today",
-                data:this.makeDayArray(this.props.logWeek[this.props.id]["bikesToday"])
+                data:this.makeDayArray(this.props.weekLog[this.props.id]["bikesToday"])
             }
 
         ]
@@ -69,7 +69,7 @@ class  WeekChart extends React.Component{
         
 
 
-        let xTicks = chartData && this.props.logWeek[this.props.id]["times"].filter(time => time.substring(time.length-2) ==="00").concat(chartData.map(log=>log.time)[chartData.length-1])
+        let xTicks = chartData && this.props.weekLog[this.props.id]["times"].filter(time => time.substring(time.length-2) ==="00").concat(chartData.map(log=>log.time)[chartData.length-1])
         let yTicks =this.props.status && [0,10,20,30,40,50,60,70,80,90,100].filter(x=>x<this.props.status[this.props.id].docks).concat([this.props.status[this.props.id].docks])
 
         let timeNow = chartData&&chartData[7]["data"].filter(a=>a!==undefined).filter(a=>a["bikes"]!==undefined)[    
