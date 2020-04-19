@@ -6,8 +6,7 @@ This project is currently in development. Users can see the real time status of 
 
 ## Project Screen Shot
 
-
-[SCREEN SHOT HERE ]
+![alt text](https://github.com/ky1044/Bikeable/blob/master/media/Screenshot-2020:04:19.png "Bikeable progress - April 19th 2020")
 
 
 ## Installation and Setup Instructions
