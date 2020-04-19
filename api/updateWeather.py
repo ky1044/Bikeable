@@ -11,7 +11,7 @@ def updateWeather():
 	weather = feed["currently"]["summary"]
 
 	with open("currentWeather", 'w') as newWeather:
-				    newWeather.write(str(temperature)+","+weather)
+		newWeather.write(str(temperature)+","+weather)
 
 
 if __name__ == "__main__":

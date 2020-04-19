@@ -12,6 +12,7 @@ from flask_sqlalchemy import SQLAlchemy
 from apscheduler.schedulers.background import BackgroundScheduler
 from updateInfo import updateInfo, Info
 from updateCurrentStatus import updateCurrentStatus,CurrentStatus
+from updateWeather import updateWeather
 from logStatus import logStatus
 
 from getCurrentStatus import get_station_status
@@ -60,6 +61,7 @@ if __name__ == "__main__":
 	scheduler = BackgroundScheduler(daemon=True)
 	scheduler.add_job(func=updateInfo, trigger="interval", minutes=60)
 	scheduler.add_job(func=updateCurrentStatus, trigger="interval", seconds=10)
+	scheduler.add_job(func=updateWeather, trigger="interval", minutes=30)
 	scheduler.add_job(func=logStatus, trigger="interval", seconds=10)
 	scheduler.start()
 	
