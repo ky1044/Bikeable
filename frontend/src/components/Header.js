@@ -9,7 +9,7 @@ function Header(props){
         <div style={{margin:"auto",alignContent:"center"}}>
           <p style={{textAlign: "center"}}>
           
-          <img src ="/logo.png" alt = "Bikeable" style = {{margin:"auto",padding:20, align:"middle"}} width = "160px"/>
+          <img src ="/logo.png" alt = "Bikeable" style = {{margin:"auto",padding:10,paddingBottom:6, align:"middle"}} width = "160px"/>
           </p>
           
         </div>

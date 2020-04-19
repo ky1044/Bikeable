@@ -15,7 +15,7 @@ function Stations(props){
             />
             ) )}
 
-            {props.hasloaded && props.stations.length<30 && <div><h3 className = "load-more" onClick={()=>props.loadMoreStations() }>Load More Stations</h3><br/></div>}
+            {props.hasLoaded && props.stations.length<30 && <div><h3 className = "load-more" onClick={()=>props.loadMoreStations() }>Load More Stations</h3><br/></div>}
         </div>
     )
 }

@@ -86,7 +86,7 @@ class  WeekChart extends React.Component{
         return(
             <div>
                 <h4 align ="center">bike count of past week (every 30 mins)</h4>
-                <ResponsiveContainer width="100%" height={300}>
+                <ResponsiveContainer width="100%" height={200}>
                     <LineChart  data={chartData} margin={{ top: 5, right: 30, bottom: 5, left: 0 }}>
                     
                     <CartesianGrid  stroke="#222222" />

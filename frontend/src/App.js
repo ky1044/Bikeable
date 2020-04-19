@@ -34,7 +34,7 @@ class App extends React.Component{
       dayLog :{},
       weekLog :{},
       
-      hasloaded:false,
+      hasLoaded:false,
 
       loadTime: null,
       updateTime :null,
@@ -116,7 +116,7 @@ class App extends React.Component{
     })
      
      this.setState({ 
-      hasloaded:true
+      hasLoaded:true
      });
      console.log("updated station status")
   }
@@ -159,20 +159,21 @@ class App extends React.Component{
 
   async handleLocationChange(name){
     await this.setState( {
-      selectedLocation:name,
-      numStations:5,
+      selectedLocation: name,
+
       stations:[],
       initialBikeCount:{},
-      logBikeCount:{},
       status:{},
+      showInfo:{},
       dayLog :{},
       weekLog :{},
-      hasloaded:false,
+      
+      hasLoaded:false,
+
       loadTime: null,
       updateTime :null,
       timeSinceUpdate:null,
-      timeSinceLoad:null,
-      showInfo:{}
+      timeSinceLoad:null
     })
     this.getStationStatus()
   }
