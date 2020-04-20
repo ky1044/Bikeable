@@ -5,7 +5,7 @@ function LocationCard(props){
     return (
         <div>
             <div style={{height:3}}/>
-            {props.id != props.stations[props.stations.length-1]&& Math.floor(props.status[props.id].distance/MinuteDistance)<Math.floor(props.status[props.stations[props.index+1]].distance/MinuteDistance)?
+            {props.id !== props.stations[props.stations.length-1]&& Math.floor(props.status[props.id].distance/MinuteDistance)<Math.floor(props.status[props.stations[props.index+1]].distance/MinuteDistance)?
                 <div>
                     <div className = "walk-container"><p style ={{paddingLeft:5,paddingRight:5,float:"right",backgroundColor:"black"}}>{Math.floor(props.status[props.stations[props.index+1]].distance/MinuteDistance)} minute walk</p></div>
                     <hr style ={{borderColor:"#222222",borderStyle: "dashed",margin:"auto",marginTop:-10}}/>
