@@ -36,6 +36,9 @@ class App extends React.Component{
       
       hasLoaded:false,
 
+      showMap:false,
+      mapStation:null,
+      
       loadTime: null,
       updateTime :null,
       timeSinceUpdate:null,
@@ -52,6 +55,8 @@ class App extends React.Component{
     this.setStationWeekLog = this.setStationWeekLog.bind(this);
 
     this.handleLocationChange = this.handleLocationChange.bind(this);
+    this.handleMapToggle = this.handleMapToggle.bind(this);
+    this.handleMapClick = this.handleMapClick.bind(this);
     this.handleShowChange = this.handleShowChange.bind(this);
     this.loadMoreStations = this.loadMoreStations.bind(this);
   }
@@ -60,6 +65,7 @@ class App extends React.Component{
     fetch(`stationstatus/${this.state.numStations}/${this.state.locationCoordinates[this.state.selectedLocation].latitude},${this.state.locationCoordinates[this.state.selectedLocation].longitude}`).then(res=>res.json()).then(data=>(
       this.setStationStatus(data)
     ))
+    
   }
 
   setStationStatus(data){
@@ -108,6 +114,7 @@ class App extends React.Component{
       }
        this.getStationDayLog(stationList[stationI])
        this.getStationWeekLog(stationList[stationI])
+       console.log(this.state.status[stationList[stationI]])
        
      }
      this.setState({
@@ -170,12 +177,28 @@ class App extends React.Component{
       
       hasLoaded:false,
 
+      showMap:false,
+      mapStation:null,
+      
       loadTime: null,
       updateTime :null,
       timeSinceUpdate:null,
       timeSinceLoad:null
     })
     this.getStationStatus()
+  }
+
+  handleMapToggle(){
+    this.setState( prevState =>(
+      {showMap:!prevState.showMap}
+     ))
+  }
+
+  handleMapClick(event,id){
+    this.setState( {
+      mapStation:id
+    })
+    console.log(this.state.mapStation)
   }
 
   handleShowChange(id){
@@ -207,7 +230,7 @@ class App extends React.Component{
     return (
       <div>
         <Header {...this.state}/>
-        <Dashboard{...this.state} handleLocationChange = {this.handleLocationChange}/>
+    <Dashboard{...this.state} handleLocationChange = {this.handleLocationChange} handleMapClick = {this.handleMapClick} handleMapToggle = {this.handleMapToggle}/>
         <Stations{...this.state} handleShowChange = {this.handleShowChange} loadMoreStations = {this.loadMoreStations}/>
         <Footer {...this.state}/>
       </div>
