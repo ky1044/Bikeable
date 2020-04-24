@@ -12,9 +12,9 @@ class  WeekChart extends React.Component{
     makeDayArray(array){
         return array.map((numBikes, index)=>{
             if (numBikes===-1){
-                return {"time":this.props.weekLog[this.props.id]["times"][index],"bikes":undefined}
+                return {"time":this.props.weekLog[this.props.stationID]["times"][index],"bikes":undefined}
             }else{
-                return {"time":this.props.weekLog[this.props.id]["times"][index],"bikes":numBikes}
+                return {"time":this.props.weekLog[this.props.stationID]["times"][index],"bikes":numBikes}
 
             }
         }).filter( time=>time!==undefined)
@@ -30,35 +30,35 @@ class  WeekChart extends React.Component{
             
             {
                 name:"Monday",
-                data:this.makeDayArray(this.props.weekLog[this.props.id]["bikesMonday"])
+                data:this.makeDayArray(this.props.weekLog[this.props.stationID]["bikesMonday"])
             },
             {
                 name:"Tuesday",
-                data:this.makeDayArray(this.props.weekLog[this.props.id]["bikesTuesday"])
+                data:this.makeDayArray(this.props.weekLog[this.props.stationID]["bikesTuesday"])
             },
             {
                 name:"Wednesday",
-                data:this.makeDayArray(this.props.weekLog[this.props.id]["bikesWednesday"])
+                data:this.makeDayArray(this.props.weekLog[this.props.stationID]["bikesWednesday"])
             },
             {
                 name:"Thursday",
-                data:this.makeDayArray(this.props.weekLog[this.props.id]["bikesThursday"])
+                data:this.makeDayArray(this.props.weekLog[this.props.stationID]["bikesThursday"])
             },
             {
                 name:"Friday",
-                data:this.makeDayArray(this.props.weekLog[this.props.id]["bikesFriday"])
+                data:this.makeDayArray(this.props.weekLog[this.props.stationID]["bikesFriday"])
             },
             {
                 name:"Saturday",
-                data:this.makeDayArray(this.props.weekLog[this.props.id]["bikesSaturday"])
+                data:this.makeDayArray(this.props.weekLog[this.props.stationID]["bikesSaturday"])
             },
             {
                 name:"Sunday",
-                data:this.makeDayArray(this.props.weekLog[this.props.id]["bikesSunday"])
+                data:this.makeDayArray(this.props.weekLog[this.props.stationID]["bikesSunday"])
             },
             {
                 name:"Today",
-                data:this.makeDayArray(this.props.weekLog[this.props.id]["bikesToday"])
+                data:this.makeDayArray(this.props.weekLog[this.props.stationID]["bikesToday"])
             }
 
         ]
@@ -69,8 +69,8 @@ class  WeekChart extends React.Component{
         
 
 
-        let xTicks = chartData && this.props.weekLog[this.props.id]["times"].filter(time => time.substring(time.length-2) ==="00").concat(chartData.map(log=>log.time)[chartData.length-1])
-        let yTicks =this.props.status && [0,10,20,30,40,50,60,70,80,90,100].filter(x=>x<this.props.status[this.props.id].docks).concat([this.props.status[this.props.id].docks])
+        let xTicks = chartData && this.props.weekLog[this.props.stationID]["times"].filter(time => time.substring(time.length-2) ==="00").concat(chartData.map(log=>log.time)[chartData.length-1])
+        let yTicks =this.props.status && [0,10,20,30,40,50,60,70,80,90,100].filter(x=>x<this.props.status[this.props.stationID].docks).concat([this.props.status[this.props.stationID].docks])
 
         let timeNow = chartData&&chartData[7]["data"].filter(a=>a!==undefined).filter(a=>a["bikes"]!==undefined)[    
             chartData[7]["data"].filter(a=>a!==undefined).filter(a=>a["bikes"]!==undefined).length-1
@@ -92,7 +92,7 @@ class  WeekChart extends React.Component{
                     <CartesianGrid  stroke="#222222" />
                     <ReferenceLine x={timeNow} stroke="white" label={<Label angle = {270} offset={10} value="current time" position='insideLeft' style={{ textAnchor: 'middle', fontSize: '80%', fill: "#444444"}}/>}/>
                     <XAxis dataKey="time" allowDuplicatedCategory={false} ticks ={xTicks}/>
-                    <YAxis  dataKey="bikes" domain={[0, this.props.status[this.props.id].docks]} ticks = {yTicks}/>
+                    <YAxis  dataKey="bikes" domain={[0, this.props.status[this.props.stationID].docks]} ticks = {yTicks}/>
                     {chartData.map(s => (
                         <Line dataKey="bikes" data={s.data} name={s.name} key={s.name} dot = {s.name==="Today"&&CustomDot} isAnimationActive ={true}  type="monotone" stroke="#00deff" strokeWidth={s.name==="Today"?5:4} animationDuration={500} opacity={s.name==="Today"?1:0.5} />
                     ))}

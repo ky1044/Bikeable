@@ -4,12 +4,12 @@ import AdditionalStationInfo from "./AdditionalStationInfo"
 import WalkingTimeLine from "./WalkingTimeLine"
 function StationCard(props){
     return (
-        <div>
+        <div id = {"station_"+props.stationID}>
             
-            <div className = "station-container"  style = {{backgroundColor:props.mapStation===props.id&&"#1a1a1a"}}>
-                <h2>{props.status[props.id].name}: {props.status[props.id].bikes}/{props.status[props.id].docks} Bikes</h2>
+            <div className = "station-container"  style = {{backgroundColor:props.mapStation===props.stationID&&"#1a1a1a"}}>
+                <h2>{props.status[props.stationID].name}: {props.status[props.stationID].bikes}/{props.status[props.stationID].docks} Bikes</h2>
                     <div style = {{float:"left"}}>
-                    <p style = {{color:"#aaaaaa"}}>{props.status[props.id].distance} meters away, <a style = {{color:"#00deff"}}href={props.status[props.id].mapsURL}>Map</a>, <a style = {{color:"#00deff"}}href={props.status[props.id].appURL}>Use</a>.</p>
+                    <p style = {{color:"#aaaaaa"}}>{props.status[props.stationID].distance} meters away, <a style = {{color:"#00deff"}}href={props.status[props.stationID].mapsURL}>Map</a>, <a style = {{color:"#00deff"}}href={props.status[props.stationID].appURL}>Use</a>.</p>
                     </div>
                     <AdditionalStationInfoToggle  {...props}/>
                     <AdditionalStationInfo {...props}/>

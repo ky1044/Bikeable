@@ -7,7 +7,7 @@ function Stations(props){
             {props.stations.map( (id,index )=>(
             <StationCard
             key={id}
-            id = {id}
+            stationID = {id}
             index = {index}
             {...props}
 

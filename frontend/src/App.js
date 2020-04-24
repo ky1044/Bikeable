@@ -5,6 +5,7 @@ import Header from "./components/Header"
 import Dashboard from "./components/Dashboard"
 import Stations from "./components/Stations"
 import Footer from "./components/Footer"
+import {scroller} from "react-scroll"
 
 class App extends React.Component{
   constructor(){
@@ -97,7 +98,6 @@ class App extends React.Component{
           
         }
        }));
-       console.log(data)
       
        if (!(stationList[stationI] in this.state.initialBikeCount)){
         this.setState(prevState=>({ 
@@ -113,9 +113,7 @@ class App extends React.Component{
           }));
       }
        this.getStationDayLog(stationList[stationI])
-       this.getStationWeekLog(stationList[stationI])
-       console.log(this.state.status[stationList[stationI]])
-       
+       this.getStationWeekLog(stationList[stationI])       
      }
      this.setState({
       stations:stationList
@@ -198,7 +196,8 @@ class App extends React.Component{
     this.setState( {
       mapStation:id
     })
-    console.log(this.state.mapStation)
+    scroller.scrollTo("station_"+id,{duration: 500,smooth: true,offset:-50})
+    // console.log(this.state.mapStation)
   }
 
   handleShowChange(id){

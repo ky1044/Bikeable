@@ -16,19 +16,19 @@ class  AdditionalStationInfo extends React.Component{
         render(){
             return(
                 <div>
-                {this.props.showInfo[this.props.id] &&
+                {this.props.showInfo[this.props.stationID] &&
                     <div className = "additional-station-info">
                         <hr style ={{borderColor:"#555555"}}/>
                         <h4>Additional Info:</h4>
 
                         <p style = {{color:"#aaaaaa"}}>
                             {this.props.timeSinceUpdate>3000? `Updated ${parseInt(this.props.timeSinceUpdate/1000)} seconds ago.`: `Updated just now. `}
-                            {ChangeSinceLoad(this.props.initialBikeCount[this.props.id],this.props.status[this.props.id].bikes,this.props.timeSinceLoad)}
+                            {ChangeSinceLoad(this.props.initialBikeCount[this.props.stationID],this.props.status[this.props.stationID].bikes,this.props.timeSinceLoad)}
                         </p>
                         <br/>
                         
                         <DayChart  {...this.props}/>
-                        {this.props.weekLog[this.props.id]&&<WeekChart  {...this.props}/>}
+                        {this.props.weekLog[this.props.stationID]&&<WeekChart  {...this.props}/>}
                     </div>
                 }</div>
             )
