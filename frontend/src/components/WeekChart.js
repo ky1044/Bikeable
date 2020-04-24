@@ -9,6 +9,7 @@ class  WeekChart extends React.Component{
         this.makeDayArray = this.makeDayArray.bind(this)
     }
 
+
     makeDayArray(array){
         return array.map((numBikes, index)=>{
             if (numBikes===-1){
@@ -72,13 +73,12 @@ class  WeekChart extends React.Component{
         let xTicks = chartData && this.props.weekLog[this.props.stationID]["times"].filter(time => time.substring(time.length-2) ==="00").concat(chartData.map(log=>log.time)[chartData.length-1])
         let yTicks =this.props.status && [0,10,20,30,40,50,60,70,80,90,100].filter(x=>x<this.props.status[this.props.stationID].docks).concat([this.props.status[this.props.stationID].docks])
 
-        let timeNow = chartData&&chartData[7]["data"].filter(a=>a!==undefined).filter(a=>a["bikes"]!==undefined)[    
-            chartData[7]["data"].filter(a=>a!==undefined).filter(a=>a["bikes"]!==undefined).length-1
-        ]["time"]
+        let times = chartData&&chartData[7]["data"].filter(a=>a!==undefined).filter(a=>a["bikes"]!==undefined)
+
+        let timeNow = times[times.length-1]["time"]
 
         const CustomDot = (props) => {
             const {payload,cx,cy ,key} = props;
-            // console.log(payload.time===timeNow)
             return payload.time===timeNow&&<Dot key={key} cx={cx}cy={cy}r={5} fill="white"/>
         }
         

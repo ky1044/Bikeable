@@ -17,6 +17,7 @@ from logStatus import logStatus
 
 from getCurrentStatus import get_station_status
 from queryStationLog import queryPastDay, queryPastWeek
+from deleteOldLogs import deleteOldLogs
 
 
 app = flask.Flask(__name__)
@@ -63,6 +64,7 @@ if __name__ == "__main__":
 	scheduler.add_job(func=updateCurrentStatus, trigger="interval", seconds=30)
 	scheduler.add_job(func=updateWeather, trigger="interval", minutes=30)
 	scheduler.add_job(func=logStatus, trigger="interval", seconds=30)
+	scheduler.add_job(func=deleteOldLogs, trigger="interval", hours=1)
 	scheduler.start()
 	
 	app.run(use_reloader=False)
