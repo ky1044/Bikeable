@@ -56,12 +56,20 @@ h1,h2,h3,h4,h5,p{
   text-align:left;
 }
 
+.search-container{
+
+  width:min(max(300px,90vw),800px);
+
+
+
+}
+
 .location-container{
   padding:0px 10px;
   margin:auto;
   width:min(max(300px,90vw),800px);
   align-self:center;
-  overflow: hidden;
+  /* overflow: hidden; */
 
 
 }
