@@ -11,7 +11,7 @@ class  StationMap extends React.Component{
   render(){
     return (
       <div>
-        <div className ="map-container">
+        <div className ="map-container" style={{height:this.props.view==="Desktop"?"calc(100vh - 175px)":300}}>
             <Map center={[this.props.locationCoordinates[this.props.selectedLocation].latitude, -this.props.locationCoordinates[this.props.selectedLocation].longitude]} zoom={16}>
             <TileLayer
                 url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
@@ -23,7 +23,7 @@ class  StationMap extends React.Component{
               <Marker 
               key = {station.id} 
               position = {[station.latitude,station.longitude]} 
-              onClick = {(event)=>this.props.handleMapClick(event,station.id)}>
+              onClick = {(event)=>{this.props.handleMapClick(event,station.id);this.props.scrollToStation(station.id)}}>
                 <Tooltip direction='right' offset={[-8, -2]} opacity={1} permanent>
                          <h4 style= {{color:"black"}}>{station.bikes}/{station.docks}</h4>
                 </Tooltip>

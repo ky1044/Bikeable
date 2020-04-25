@@ -5,7 +5,9 @@ import Header from "./components/Header"
 import Dashboard from "./components/Dashboard"
 import Stations from "./components/Stations"
 import Footer from "./components/Footer"
-import {scroller} from "react-scroll"
+
+
+import Desktop from "./components/Desktop"
 
 class App extends React.Component{
   constructor(){
@@ -42,8 +44,15 @@ class App extends React.Component{
       
       loadTime: null,
       updateTime :null,
+      mapClickTime:null,
       timeSinceUpdate:null,
-      timeSinceLoad:null
+      timeSinceLoad:null,
+      timeSinceMapClick:null,
+
+      windowHeight:0,
+      windowWidth:0,
+      view:null
+
       
     }
     this.getStationStatus = this.getStationStatus.bind(this);
@@ -60,6 +69,8 @@ class App extends React.Component{
     this.handleMapClick = this.handleMapClick.bind(this);
     this.handleShowChange = this.handleShowChange.bind(this);
     this.loadMoreStations = this.loadMoreStations.bind(this);
+
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
 
   getStationStatus(){
@@ -112,8 +123,8 @@ class App extends React.Component{
 
           }));
       }
-       this.getStationDayLog(stationList[stationI])
-       this.getStationWeekLog(stationList[stationI])       
+      //  this.getStationDayLog(stationList[stationI])
+      //  this.getStationWeekLog(stationList[stationI])       
      }
      this.setState({
       stations:stationList
@@ -175,7 +186,6 @@ class App extends React.Component{
       
       hasLoaded:false,
 
-      showMap:false,
       mapStation:null,
       
       loadTime: null,
@@ -192,16 +202,26 @@ class App extends React.Component{
      ))
   }
 
-  handleMapClick(event,id){
-    this.setState( {
-      mapStation:id
+  async handleMapClick(event,id){
+    await this.setState( prevState=>{
+      return {
+        mapStation:id,
+        mapClickTime:Date.now(),
+        showInfo:{
+          ...prevState.showInfo,
+          [id]:true
+        } 
+      }
+
     })
-    scroller.scrollTo("station_"+id,{duration: 500,smooth: true,offset:-50})
+    this.getStationDayLog(id)
+    this.getStationWeekLog(id) 
+    
     // console.log(this.state.mapStation)
   }
 
-  handleShowChange(id){
-    this.setState( prevState =>{
+  async handleShowChange(id){
+    await this.setState( prevState =>{
       const newShow = !prevState.showInfo[id]
       return { 
       showInfo:{
@@ -209,6 +229,8 @@ class App extends React.Component{
         [id]:newShow
       }
      }})
+    this.getStationDayLog(id)
+    this.getStationWeekLog(id)   
   }
 
   async loadMoreStations(){
@@ -218,22 +240,53 @@ class App extends React.Component{
     this.getStationStatus()
   }
 
+  updateWindowDimensions() {
+    this.setState(prevState=>{
+      const nextShowMap = prevState.showMap || (prevState.view!=="Desktop"&&window.innerWidth>820);
+      return {
+        windowWidth: window.innerWidth, 
+      windowHeight: window.innerHeight,
+      view:window.innerWidth>820?"Desktop":"Mobile",
+      showMap:nextShowMap
+    }});
+    
+      
+     
+  }
+
   componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+    this.setState({showMap:window.innerWidth>820?true:false})
     this.getStationStatus()
     setInterval(() => this.setState(prevState=>({ timeSinceUpdate: Date.now()-prevState.updateTime,timeSinceLoad:Date.now()-prevState.loadTime})), 100)
+    setInterval(() => this.setState(prevState=>({timeSinceMapClick:Date.now()-prevState.mapClickTime})), 10)
     setInterval(() => this.getStationStatus(), 30000)
+    
       
   }
 
   render(){
-    return (
+    if (this.state.view==="Desktop"){return (
       <div>
         <Header {...this.state}/>
-    <Dashboard{...this.state} handleLocationChange = {this.handleLocationChange} handleMapClick = {this.handleMapClick} handleMapToggle = {this.handleMapToggle}/>
+        <Desktop {...this.state} handleLocationChange = {this.handleLocationChange} handleMapClick = {this.handleMapClick} handleMapToggle = {this.handleMapToggle} handleShowChange = {this.handleShowChange} loadMoreStations = {this.loadMoreStations}/>
+        <Footer {...this.state}/>
+        
+      </div>
+    );}
+    else{return(
+      <div>
+        <Header {...this.state}/>
+        <div style={{width:"min(90vw,800px)",margin:"auto"}}>
+        <Dashboard{...this.state} handleLocationChange = {this.handleLocationChange} handleMapClick = {this.handleMapClick} handleMapToggle = {this.handleMapToggle}/>
         <Stations{...this.state} handleShowChange = {this.handleShowChange} loadMoreStations = {this.loadMoreStations}/>
+        </div>
         <Footer {...this.state}/>
       </div>
-    );
+    )
+      
+    }
   }
 }
 
