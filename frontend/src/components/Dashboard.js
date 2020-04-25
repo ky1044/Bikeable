@@ -1,12 +1,6 @@
 import React from "react"
 import LocationCard from "./LocationCard"
 import Maps from "./StationMap"
-import {scroller} from "react-scroll"
-
-function scrollToStation(id) {
-    scroller.scrollTo("station_"+id,{duration: 500,smooth: true,offset:-20})
-    console.log(id)
-    }
 
 function Dashboard(props){
     return(
@@ -24,7 +18,7 @@ function Dashboard(props){
                 <div className = "toggle" style={{marginTop:15}} onClick={props.handleMapToggle}>
                     {props.showMap?"hide map ∧":"show map ∨"}</div>
                 <div style = {{clear:"both"}}/>
-                {props.showMap&&<Maps{...props} handleMapClick = {props.handleMapClick} scrollToStation={scrollToStation}/>}
+                {props.showMap&&<Maps{...props} handleMapClick = {props.handleMapClick}/>}
                 <div style={{height:25}}/>
             </div>
             :

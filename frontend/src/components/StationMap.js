@@ -1,6 +1,10 @@
 import React from "react";
 import { Map, Marker, TileLayer,Tooltip } from "react-leaflet";
 
+async function scrollToStation(id) {
+  let element = document.getElementById("station_"+id);
+  element.scrollIntoView({behavior: "smooth"});
+  }
 
 class  StationMap extends React.Component{
 
@@ -23,7 +27,7 @@ class  StationMap extends React.Component{
               <Marker 
               key = {station.id} 
               position = {[station.latitude,station.longitude]} 
-              onClick = {(event)=>{this.props.handleMapClick(event,station.id);this.props.scrollToStation(station.id)}}>
+              onClick = {(event)=>{this.props.handleMapClick(event,station.id);scrollToStation(station.id)}}>
                 <Tooltip direction='right' offset={[-8, -2]} opacity={1} permanent>
                          <h4 style= {{color:"black"}}>{station.bikes}/{station.docks}</h4>
                 </Tooltip>

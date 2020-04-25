@@ -27,8 +27,8 @@ class  AdditionalStationInfo extends React.Component{
                         </p>
                         <br/>
                         
-                        {this.props.dayLog[this.props.stationID]? <DayChart  {...this.props}/>:<h4 align ="center">Loading past day's logs...<br/></h4>}
-                        {this.props.weekLog[this.props.stationID]?<WeekChart  {...this.props}/>:<h4 align ="center">Loading past week's logs...<br/></h4>}
+                        {this.props.dayLog[this.props.stationID]? <DayChart  {...this.props}/>:<h4 align ="center">Loading past day's logs...<div style = {{height:200}}/></h4>}
+                        {this.props.weekLog[this.props.stationID]?<WeekChart  {...this.props}/>:<h4 align ="center">Loading past week's logs...<div style = {{height:200}}/></h4>}
                     </div>
                 }</div>
             )
