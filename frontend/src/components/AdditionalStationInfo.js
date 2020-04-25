@@ -22,7 +22,7 @@ class  AdditionalStationInfo extends React.Component{
                         <h4>Additional Info:</h4>
 
                         <p style = {{color:"#aaaaaa"}}>
-                            {this.props.timeSinceUpdate>3000? `Updated ${parseInt(this.props.timeSinceUpdate/1000)} seconds ago.`: `Updated just now. `}
+                            {this.props.timeSinceUpdate>3000? `Updated ${parseInt(this.props.timeSinceUpdate/1000)} seconds ago.`: `Updated just now. `}{` `}
                             {ChangeSinceLoad(this.props.initialBikeCount[this.props.stationID],this.props.status[this.props.stationID].bikes,this.props.timeSinceLoad)}
                         </p>
                         <br/>
