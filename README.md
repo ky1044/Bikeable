@@ -6,10 +6,14 @@ This project is currently in development. Users can see the real time status and
 
 ## Project Screen Shot
 
-Desktop
-![alt text](https://github.com/ky1044/Bikeable/blob/master/media/Screenshot-2020:04:26-1.png "Bikeable desktop progress - April 26th 2020")
-Mobile
-![alt text](https://github.com/ky1044/Bikeable/blob/master/media/Screenshot-2020:04:26-2.png "Bikeable mobile progress - April 26th 2020")
+Desktop<br/>
+
+<img src="https://github.com/ky1044/Bikeable/blob/master/media/Screenshot-2020:04:26-1.png" width="1000px">
+
+Mobile<br/>
+<img align="center" src="https://github.com/ky1044/Bikeable/blob/master/media/Screenshot-2020:04:26-2.png" width="300px">
+
+
 
 
 ## Installation and Setup Instructions
