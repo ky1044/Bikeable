@@ -23,7 +23,7 @@ class App extends React.Component{
         "The MET":{latitude:40.7794, longitude:73.9632},
         "Penn Station":{latitude:40.7506,longitude:73.9935}
       },
-      numStations:5,
+      numStations:10,
 
       time:"",
       date:"",
@@ -176,6 +176,7 @@ class App extends React.Component{
   async handleLocationChange(name){
     await this.setState( {
       selectedLocation: name,
+      numStations:10,
 
       stations:[],
       initialBikeCount:{},
@@ -235,7 +236,7 @@ class App extends React.Component{
 
   async loadMoreStations(){
     await this.setState(prevState=>({
-      numStations: prevState.numStations+5
+      numStations: prevState.numStations+10
     }))
     this.getStationStatus()
   }

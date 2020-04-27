@@ -45,7 +45,7 @@ def get_station_availability(station_list):
 	return station_list
 
 def get_station_status(user_latitude, user_longitude,count):
-	nearby_station_list = get_nearby_stations(user_latitude, user_longitude,1000,count)
+	nearby_station_list = get_nearby_stations(user_latitude, user_longitude,10000,count)
 	nearby_station_status = get_station_availability(nearby_station_list)
 	return nearby_station_status
 
