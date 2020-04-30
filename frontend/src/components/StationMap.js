@@ -1,5 +1,25 @@
 import React from "react";
+import L from "leaflet"
 import { Map, Marker, TileLayer,Tooltip } from "react-leaflet";
+import currentLocation from "./mapImages/currentLocation.png"
+
+const currentLocationIcon = new L.Icon({
+  iconUrl: require('./mapImages/currentLocation.png'),
+  // iconRetinaUrl: require('./mapImages/currentLocation.png'),
+  iconAnchor: null,
+  // popupAnchor: null,
+  // shadowUrl: null,
+  // shadowSize: null,
+  // shadowAnchor: null,
+  iconSize: new L.Point(20, 20),
+  // className: 'leaflet-div-icon'
+});
+const stationIcon = new L.Icon({
+  iconUrl: require('./mapImages/station2.png'),
+  iconAnchor: null,
+  iconSize: new L.Point(30, 30),
+
+});
 
 async function scrollToStation(id) {
   let element = document.getElementById("station_"+id);
@@ -26,16 +46,17 @@ class  StationMap extends React.Component{
 
               <Marker 
               key = {station.id} 
+              icon = {stationIcon}
               position = {[station.latitude,station.longitude]} 
               onClick = {(event)=>{this.props.handleMapClick(event,station.id);scrollToStation(station.id)}}>
-                <Tooltip direction='right' offset={[-8, -2]} opacity={1} permanent>
-                         <h4 style= {{color:"black"}}>{station.bikes}/{station.docks}</h4>
+                <Tooltip direction='top' offset={[0, -4]} opacity={.4}  permanent>
+                         <h4 style= {{color:"black",opacity:1}}>{station.bikes}/{station.docks}</h4>
                 </Tooltip>
               
               </Marker>
             
             ))}
-            <Marker position = {[this.props.locationCoordinates[this.props.selectedLocation].latitude, -this.props.locationCoordinates[this.props.selectedLocation].longitude]} />
+            <Marker icon = {currentLocationIcon} position = {[this.props.locationCoordinates[this.props.selectedLocation].latitude, -this.props.locationCoordinates[this.props.selectedLocation].longitude]}  />
             
             </Map>
             
