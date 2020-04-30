@@ -9,19 +9,25 @@ import Footer from "./components/Footer"
 
 import Desktop from "./components/Desktop"
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 class App extends React.Component{
   constructor(){
     super()
     this.state = {
 
       selectedLocation:"Union Square Park",
+      selectedLocationLatitude:40.7359,
+      selectedLocationLongitude:-73.9911,
       locationCoordinates:{
-        "Washington Square Park":{latitude :40.7308,longitude:73.9973},
-        "Union Square Park":{latitude:40.7359, longitude:73.9911},
-        "Times Square":{latitude:40.7580,longitude:73.9911},
-        "Bowling Green":{latitude:40.7050, longitude:74.0137},
-        "The MET":{latitude:40.7794, longitude:73.9632},
-        "Penn Station":{latitude:40.7506,longitude:73.9935}
+        "Washington Square Park":{latitude :40.7308,longitude:-73.9973},
+        "Union Square Park":{latitude:40.7359, longitude:-73.9911},
+        "Times Square":{latitude:40.7580,longitude:-73.9911},
+        "Bowling Green":{latitude:40.7050, longitude:-74.0137},
+        "The MET":{latitude:40.7794, longitude:-73.9632},
+        "Penn Station":{latitude:40.7506,longitude:-73.9935},
       },
       numStations:10,
 
@@ -64,6 +70,7 @@ class App extends React.Component{
     this.getStationWeekLog = this.getStationWeekLog.bind(this);
     this.setStationWeekLog = this.setStationWeekLog.bind(this);
 
+    this.handleMapLocationChange = this.handleMapLocationChange.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleMapToggle = this.handleMapToggle.bind(this);
     this.handleMapClick = this.handleMapClick.bind(this);
@@ -74,7 +81,7 @@ class App extends React.Component{
   }
 
   getStationStatus(){
-    fetch(`stationstatus/${this.state.numStations}/${this.state.locationCoordinates[this.state.selectedLocation].latitude},${this.state.locationCoordinates[this.state.selectedLocation].longitude}`).then(res=>res.json()).then(data=>(
+    fetch(`stationstatus/${this.state.numStations}/${this.state.selectedLocationLatitude},${this.state.selectedLocationLongitude}`).then(res=>res.json()).then(data=>(
       this.setStationStatus(data)
     ))
     
@@ -173,11 +180,42 @@ class App extends React.Component{
     
   }
 
-  async handleLocationChange(name){
-    await this.setState( {
-      selectedLocation: name,
-      numStations:10,
+  async handleMapLocationChange(lat,lon){
+    await this.setState( prevState=>({
+      selectedLocation: "Custom Location",
+      selectedLocationLatitude:lat.toFixed(5),
+      selectedLocationLongitude:lon.toFixed(5),
 
+      numStations:10,
+      stations:[],
+      initialBikeCount:{},
+      status:{},
+      showInfo:{},
+      dayLog :{},
+      weekLog :{},
+      
+      hasLoaded:false,
+
+
+      mapStation:null,
+      
+      loadTime: null,
+      updateTime :null,
+      mapClickTime:null,
+      timeSinceUpdate:null,
+      timeSinceLoad:null,
+      timeSinceMapClick:null,
+    }))
+    this.getStationStatus()
+
+  }
+
+  async handleLocationChange(name){
+    await this.setState( prevState=>({
+      selectedLocation: name,
+      selectedLocationLatitude:prevState.locationCoordinates[name].latitude,
+      selectedLocationLongitude:prevState.locationCoordinates[name].longitude,
+      numStations:10,
       stations:[],
       initialBikeCount:{},
       status:{},
@@ -191,9 +229,11 @@ class App extends React.Component{
       
       loadTime: null,
       updateTime :null,
+      mapClickTime:null,
       timeSinceUpdate:null,
-      timeSinceLoad:null
-    })
+      timeSinceLoad:null,
+      timeSinceMapClick:null,
+    }))
     this.getStationStatus()
   }
 
@@ -218,7 +258,6 @@ class App extends React.Component{
     this.getStationDayLog(id)
     this.getStationWeekLog(id) 
     
-    // console.log(this.state.mapStation)
   }
 
   async handleShowChange(id){
@@ -271,7 +310,7 @@ class App extends React.Component{
     if (this.state.view==="Desktop"){return (
       <div>
         <Header {...this.state}/>
-        <Desktop {...this.state} handleLocationChange = {this.handleLocationChange} handleMapClick = {this.handleMapClick} handleMapToggle = {this.handleMapToggle} handleShowChange = {this.handleShowChange} loadMoreStations = {this.loadMoreStations}/>
+        <Desktop {...this.state} handleLocationChange = {this.handleLocationChange} handleMapClick = {this.handleMapClick} handleMapLocationChange = {this.handleMapLocationChange} handleMapToggle = {this.handleMapToggle} handleShowChange = {this.handleShowChange} loadMoreStations = {this.loadMoreStations}/>
         <Footer {...this.state}/>
         
       </div>
@@ -280,7 +319,7 @@ class App extends React.Component{
       <div>
         <Header {...this.state}/>
         <div style={{width:"min(90vw,800px)",margin:"auto"}}>
-        <Dashboard{...this.state} handleLocationChange = {this.handleLocationChange} handleMapClick = {this.handleMapClick} handleMapToggle = {this.handleMapToggle}/>
+        <Dashboard{...this.state} handleLocationChange = {this.handleLocationChange} handleMapClick = {this.handleMapClick} handleMapLocationChange = {this.handleMapLocationChange}  handleMapToggle = {this.handleMapToggle}/>
         <Stations{...this.state} handleShowChange = {this.handleShowChange} loadMoreStations = {this.loadMoreStations}/>
         </div>
         <Footer {...this.state}/>

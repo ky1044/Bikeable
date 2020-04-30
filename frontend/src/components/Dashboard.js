@@ -18,7 +18,7 @@ function Dashboard(props){
                 <div className = "toggle" style={{marginTop:15}} onClick={props.handleMapToggle}>
                     {props.showMap?"hide map ∧":"show map ∨"}</div>
                 <div style = {{clear:"both"}}/>
-                {props.showMap&&<Maps{...props} handleMapClick = {props.handleMapClick}/>}
+                {props.showMap&&<Maps{...props} handleMapClick = {props.handleMapClick} handleMapLocationChange = {props.handleMapLocationChange} />}
                 <div style={{height:5}}/>
             </div>
             :

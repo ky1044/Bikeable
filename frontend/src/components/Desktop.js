@@ -32,7 +32,7 @@ function Desktop(props){
                     <div className = "toggle" style={{marginTop:3, float:"right"}} onClick={props.handleMapToggle}>
                     {props.showMap?"hide map ∧":"show map ∨"}</div>
                     <div style = {{padding:5, clear:"both"}}>
-                    {props.showMap&&<Maps{...props} handleMapClick = {props.handleMapClick}/>}
+                    {props.showMap&&<Maps{...props} handleMapClick = {props.handleMapClick} handleMapLocationChange = {props.handleMapLocationChange} />}
                     </div>
                 </div>
                 
