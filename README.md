@@ -8,7 +8,7 @@ This project is currently in development. Users can see the real time status and
 
 Desktop<br/>
 
-<img src="https://github.com/ky1044/Bikeable/blob/master/media/Screenshot-2020:04:26-1.png" width="1000px">
+<img src="https://github.com/ky1044/Bikeable/blob/master/media/Screenshot-2020:05:20-1.png" width="1000px">
 
 Mobile<br/>
 <img align="center" src="https://github.com/ky1044/Bikeable/blob/master/media/Screenshot-2020:04:26-2.png" width="300px">
