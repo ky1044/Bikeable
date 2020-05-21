@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Bikeable/static/css/main.f3295c98.chunk.css",
-    "main.js": "/Bikeable/static/js/main.1a0d6ab4.chunk.js",
-    "main.js.map": "/Bikeable/static/js/main.1a0d6ab4.chunk.js.map",
+    "main.js": "/Bikeable/static/js/main.ff448848.chunk.js",
+    "main.js.map": "/Bikeable/static/js/main.ff448848.chunk.js.map",
     "runtime-main.js": "/Bikeable/static/js/runtime-main.0e6a2a49.js",
     "runtime-main.js.map": "/Bikeable/static/js/runtime-main.0e6a2a49.js.map",
     "static/js/2.aabcb228.chunk.js": "/Bikeable/static/js/2.aabcb228.chunk.js",
     "static/js/2.aabcb228.chunk.js.map": "/Bikeable/static/js/2.aabcb228.chunk.js.map",
     "index.html": "/Bikeable/index.html",
-    "precache-manifest.7b35f7a3e96b263941530bae05836177.js": "/Bikeable/precache-manifest.7b35f7a3e96b263941530bae05836177.js",
+    "precache-manifest.6c3589d6288febd343b1318213da47bd.js": "/Bikeable/precache-manifest.6c3589d6288febd343b1318213da47bd.js",
     "service-worker.js": "/Bikeable/service-worker.js",
     "static/css/main.f3295c98.chunk.css.map": "/Bikeable/static/css/main.f3295c98.chunk.css.map",
     "static/js/2.aabcb228.chunk.js.LICENSE.txt": "/Bikeable/static/js/2.aabcb228.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.0e6a2a49.js",
     "static/js/2.aabcb228.chunk.js",
     "static/css/main.f3295c98.chunk.css",
-    "static/js/main.1a0d6ab4.chunk.js"
+    "static/js/main.ff448848.chunk.js"
   ]
 }
