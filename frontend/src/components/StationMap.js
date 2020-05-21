@@ -7,6 +7,7 @@ const currentLocationIcon = new L.Icon({
   iconAnchor: null,
   iconSize: new L.Point(20, 20),
 });
+
 const stationIcon = new L.Icon({
   iconUrl: require('./mapImages/station2.png'),
   iconAnchor: null,

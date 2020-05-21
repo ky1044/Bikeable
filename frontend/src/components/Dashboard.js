@@ -13,7 +13,6 @@ function Dashboard(props){
                 <h4 style={{float:"left"}}>{props.time}, {props.date}</h4>
                 <h4 style={{float:"right"}}>{props.temperature}, {props.weather}</h4>
                 </div>
-                {/* <div style = {{height:10}}/> */}
                 <LocationCard {...props} handleLocationChange = {props.handleLocationChange} /> 
                 <div className = "toggle" style={{marginTop:15}} onClick={props.handleMapToggle}>
                     {props.showMap?"hide map ∧":"show map ∨"}</div>

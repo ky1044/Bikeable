@@ -9,9 +9,8 @@ import Footer from "./components/Footer"
 
 import Desktop from "./components/Desktop"
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+var API_URL = "https://citibikeable.com/"
+// API_URL  = ""
 
 class App extends React.Component{
   constructor(){
@@ -81,7 +80,7 @@ class App extends React.Component{
   }
 
   getStationStatus(){
-    fetch(`stationstatus/${this.state.numStations}/${this.state.selectedLocationLatitude},${this.state.selectedLocationLongitude}`).then(res=>res.json()).then(data=>(
+    fetch(`${API_URL}stationstatus/${this.state.numStations}/${this.state.selectedLocationLatitude},${this.state.selectedLocationLongitude}`).then(res=>res.json()).then(data=>(
       this.setStationStatus(data)
     ))
     
@@ -145,7 +144,7 @@ class App extends React.Component{
   }
 
   getStationDayLog(stationID){
-    fetch(`stationlog/${stationID}`).then(res=>res.json()).then(data=>(
+    fetch(`${API_URL}stationlog/${stationID}`).then(res=>res.json()).then(data=>(
       this.setStationDayLog(data,stationID)
     ))
     // console.log("updated station "+stationID+" logs")
@@ -163,7 +162,7 @@ class App extends React.Component{
   }
 
   getStationWeekLog(stationID){
-    fetch(`stationlogweek/${stationID}`).then(res=>res.json()).then(data=>(
+    fetch(`${API_URL}stationlogweek/${stationID}`).then(res=>res.json()).then(data=>(
       this.setStationWeekLog(data,stationID)
     ))
   }
@@ -244,17 +243,16 @@ class App extends React.Component{
   }
 
   async handleMapClick(event,id){
-    await this.setState( prevState=>{
-      return {
+    await this.setState( prevState=>({
         mapStation:id,
         mapClickTime:Date.now(),
         showInfo:{
           ...prevState.showInfo,
           [id]:true
-        } 
-      }
+        } }
+      
 
-    })
+    ))
     this.getStationDayLog(id)
     this.getStationWeekLog(id) 
     
