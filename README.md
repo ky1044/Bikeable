@@ -32,7 +32,7 @@ Mobile<br/>
 
 - Go to '/api' folder on command line
 - activate virtual environment with `source venv/bin/activate` 
-- start with `python3 api.py`  
+- start with `python3 application.py`  
 - terminate by holding `ctrl` + `c`
 
 #### Using the Website 
