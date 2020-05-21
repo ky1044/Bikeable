@@ -19,8 +19,11 @@ from getCurrentStatus import get_station_status
 from queryStationLog import queryPastDay, queryPastWeek
 from deleteOldLogs import deleteOldLogs
 
+from flask_cors import CORS
+
 
 app = flask.Flask(__name__)
+CORS(app)
 app.config["DEBUG"] = False
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///station.db'
