@@ -1,8 +1,15 @@
-# Bikeable
+# [Bikeable](https://ky1044.github.io/Bikeable/)
 website to find the current and past status of the nearest Citibike stations.
 
 ## Project Status
 This project is currently in development. Users can see the real time status and of the nearest Citibike stations as well as logs for the past week. Functionality to predict future status is in progress
+
+## Live Demo
+Link: [https://ky1044.github.io/Bikeable/](https://ky1044.github.io/Bikeable/)
+
+React frontend is hosted on Github Pages, Flask API and backend is hosted on AWS (Elastic Beanstalk).
+### Issues
+- Critical issue with APScheduler on Elastic Beanstalk, which is used to schedule bike count updates and logging statuses. Live demo is currently broken, and cron is being considered as an alternative. 
 
 ## Project Screen Shot
 
@@ -12,9 +19,6 @@ Desktop<br/>
 
 Mobile<br/>
 <img align="center" src="https://github.com/ky1044/Bikeable/blob/master/media/Screenshot-2020:04:26-2.png" width="300px">
-
-
-
 
 ## Installation and Setup Instructions
 
