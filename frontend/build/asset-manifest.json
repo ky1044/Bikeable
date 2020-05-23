@@ -1,22 +1,23 @@
 {
   "files": {
     "main.css": "/Bikeable/static/css/main.f3295c98.chunk.css",
-    "main.js": "/Bikeable/static/js/main.ff448848.chunk.js",
-    "main.js.map": "/Bikeable/static/js/main.ff448848.chunk.js.map",
+    "main.js": "/Bikeable/static/js/main.a4a17741.chunk.js",
+    "main.js.map": "/Bikeable/static/js/main.a4a17741.chunk.js.map",
     "runtime-main.js": "/Bikeable/static/js/runtime-main.0e6a2a49.js",
     "runtime-main.js.map": "/Bikeable/static/js/runtime-main.0e6a2a49.js.map",
-    "static/js/2.aabcb228.chunk.js": "/Bikeable/static/js/2.aabcb228.chunk.js",
-    "static/js/2.aabcb228.chunk.js.map": "/Bikeable/static/js/2.aabcb228.chunk.js.map",
+    "static/js/2.d113790f.chunk.js": "/Bikeable/static/js/2.d113790f.chunk.js",
+    "static/js/2.d113790f.chunk.js.map": "/Bikeable/static/js/2.d113790f.chunk.js.map",
     "index.html": "/Bikeable/index.html",
-    "precache-manifest.6c3589d6288febd343b1318213da47bd.js": "/Bikeable/precache-manifest.6c3589d6288febd343b1318213da47bd.js",
+    "precache-manifest.f806f9f2f8e9c44e4b5611df7ff3025e.js": "/Bikeable/precache-manifest.f806f9f2f8e9c44e4b5611df7ff3025e.js",
     "service-worker.js": "/Bikeable/service-worker.js",
     "static/css/main.f3295c98.chunk.css.map": "/Bikeable/static/css/main.f3295c98.chunk.css.map",
-    "static/js/2.aabcb228.chunk.js.LICENSE.txt": "/Bikeable/static/js/2.aabcb228.chunk.js.LICENSE.txt"
+    "static/js/2.d113790f.chunk.js.LICENSE.txt": "/Bikeable/static/js/2.d113790f.chunk.js.LICENSE.txt",
+    "static/media/logo.png": "/Bikeable/static/media/logo.c49a6b31.png"
   },
   "entrypoints": [
     "static/js/runtime-main.0e6a2a49.js",
-    "static/js/2.aabcb228.chunk.js",
+    "static/js/2.d113790f.chunk.js",
     "static/css/main.f3295c98.chunk.css",
-    "static/js/main.ff448848.chunk.js"
+    "static/js/main.a4a17741.chunk.js"
   ]
 }

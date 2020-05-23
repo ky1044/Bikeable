@@ -96,7 +96,7 @@ class  WeekChart extends React.Component{
                     {chartData.map(s => (
                         <Line dataKey="bikes" data={s.data} name={s.name} key={s.name} dot = {s.name==="Today"&&CustomDot} isAnimationActive ={true}  type="monotone" stroke="#00deff" strokeWidth={s.name==="Today"?5:4} animationDuration={500} opacity={s.name==="Today"?1:0.5} />
                     ))}
-                    <Tooltip wrapperStyle = {{color:"black"}} itemStyle = {{color:"black"}} animationEasing = "ease"/>
+                    <Tooltip wrapperStyle = {{color:"black"}} itemStyle = {{color:"black",fontSize:12,marginTop:-7,marginBottom:-7,lineHeight:-5}} animationEasing = "ease"/>
                     </LineChart>
                 </ResponsiveContainer>
 

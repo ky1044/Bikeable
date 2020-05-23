@@ -1,5 +1,8 @@
 import React from "react"
 
+
+const logo = require('./logo.png');
+
 function Header(props){
 	return(
     <div>
@@ -9,7 +12,7 @@ function Header(props){
         <div style={{margin:"auto",alignContent:"center"}}>
           <p style={{textAlign: "center"}}>
           
-          <img src ="./logo.png" alt = "Bikeable" style = {{margin:"auto",padding:20,paddingBottom:16, align:"middle"}} width = "160px"/>
+          <img src ={logo} alt = "Bikeable" style = {{margin:"auto",padding:20,paddingBottom:16, align:"middle"}} width = "160px"/>
           </p>
           
         </div>
