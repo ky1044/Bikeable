@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Bikeable/precache-manifest.d4646a2bd520b335af724697cc786f11.js"
+  "/Bikeable/precache-manifest.f806f9f2f8e9c44e4b5611df7ff3025e.js"
 );
 
 self.addEventListener('message', (event) => {

@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9364b058322913b5888ad67358733e03",
+    "revision": "6732ead8370cd3eb8111c5fd38142bef",
     "url": "/Bikeable/index.html"
   },
   {
-    "revision": "e292105398c1a5c8f360",
+    "revision": "c8cf7cc35467baf3e573",
     "url": "/Bikeable/static/css/main.f3295c98.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Bikeable/static/js/2.d113790f.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "e292105398c1a5c8f360",
-    "url": "/Bikeable/static/js/main.a37cf96e.chunk.js"
+    "revision": "c8cf7cc35467baf3e573",
+    "url": "/Bikeable/static/js/main.a4a17741.chunk.js"
   },
   {
     "revision": "18e26230869049e59fb0",
