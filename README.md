@@ -4,7 +4,9 @@ website to find the current and past status of the nearest Citibike stations.
 ## Project Status
 This project is currently in development. Users can see the real time status and of the nearest Citibike stations as well as logs for the past week. Functionality to predict future status is in progress
 
-## Live Demo
+## Live Demo [BROKEN]  
+Live demo is currently broken due to problemsn with Beanstalk's SQL DB. Working on getting it back. 
+
 Link: [https://ky1044.github.io/Bikeable/](https://ky1044.github.io/Bikeable/)
 
 React frontend is hosted on Github Pages, Flask API and backend is hosted on AWS (Elastic Beanstalk).
